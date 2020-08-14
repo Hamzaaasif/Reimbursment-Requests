@@ -1,0 +1,24 @@
+{
+  "name": "reimburse-requests",
+  "version": "1.0.0",
+  "description": "This project allow user to request for reimburse and managers can approved or denied the request",
+  "main": "app.js",
+  "scripts": {
+    "dev": "nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Hamzaaasif/Reimbursement-Request.git"
+  },
+  "author": "hamza asif",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Hamzaaasif/Reimbursement-Request/issues"
+  },
+  "homepage": "https://github.com/Hamzaaasif/Reimbursement-Request#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "morgan": "^1.10.0",
+    "nodemon": "^2.0.4"
+  }
+}
