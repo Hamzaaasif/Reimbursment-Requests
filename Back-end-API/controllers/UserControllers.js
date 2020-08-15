@@ -8,7 +8,7 @@ const expressjwt = require('express-jwt');
 
 //db connections
 const pool = new Pool({
-user: "Admin",
+user: "admin",
 host: 'localhost',
 database: 'reimbursment',
 password: "admin",
@@ -87,6 +87,7 @@ exports.signup = async (req, res) =>{
 exports.signin = (req, res) => {
   // Find the user based on email
   const { employeeid, password } = req.body
+  console.log("check", employeeid, password)
   dbquery = `SELECT * FROM users WHERE employeeid = $1`;
   pool.query(dbquery, [employeeid], (err, result)=> {
       // if error or no user

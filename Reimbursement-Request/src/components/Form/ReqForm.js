@@ -30,8 +30,8 @@ const Form = (props)=>{
                     validate error="wrong"
                     success="right" 
                     rows="4"
-                    onChange={props.OnChange}
-                    value={props.reason}
+                    onChange={props.OnChange("reasons")}
+                    value={props.reasons}
                     />
 
                   <MDBInput 
@@ -40,7 +40,7 @@ const Form = (props)=>{
                     rows="4"
                     validate error="wrong"
                     success="right"
-                    onChange={props.OnChange}
+                    onChange={props.OnChange("comment")}
                     value={props.comment}
                     />
 
@@ -49,7 +49,7 @@ const Form = (props)=>{
                     group type="number"
                     validate error="wrong"
                     success="right"
-                    onChange={props.OnChange}
+                    onChange={props.OnChange("money")}
                     value={props.money}
                     />
           </MDBModalBody>

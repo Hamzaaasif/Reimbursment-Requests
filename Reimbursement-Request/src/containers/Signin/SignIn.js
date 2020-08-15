@@ -30,7 +30,7 @@ class signin extends React.Component {
       password
     };
 
-    Signin(user).then(data=>{
+    Signin(user).then(data =>{
       if(data.error)
       {
         this.setState({error:data.error , loading:false})
