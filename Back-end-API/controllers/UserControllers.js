@@ -58,7 +58,7 @@ exports.signup = async (req, res) =>{
    
           let dbquery = `INSERT INTO users (fname, lname, password, userrole, employeeid) VALUES ($1 , $2 , $3 , $4 , $5);`;
           pool.query(dbquery , [fname,lname,password,userrole,employeeid] , (err,result) => {
-            console.log(result)
+
               if(err){
                   return res.status(400).json({
                       error : err 
@@ -72,8 +72,10 @@ exports.signup = async (req, res) =>{
           });
       }
       else{
-        console.log(result)
-          res.send("Employee Id is already taken ")
+        res.status(400).json({
+          error: "Employee Id is already taken"
+        });
+          
       }
   })
 }
@@ -93,7 +95,6 @@ exports.signin = (req, res) => {
               error: "Sorry!! We can't find your id contact me manager."
           })
       }
-      console.log(result.rows[0].userrole)
 
       const fname = result.rows[0].fname 
       const lname = result.rows[0].lname 

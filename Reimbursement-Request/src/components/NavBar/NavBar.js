@@ -37,7 +37,7 @@ render() {
             </MDBNavItem>
 
             <MDBNavItem>
-            <MDBNavLink active to={"/"+this.props.thirdRef } className="text-white px-2"><h4><b> {this.props.third} </b></h4></MDBNavLink>
+            <MDBNavLink active to={"/"+this.props.thirdRef } onClick={this.props.Signout} className="text-white px-2"><h4><b> {this.props.third} </b></h4></MDBNavLink>
             </MDBNavItem>
 
 

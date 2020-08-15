@@ -7,7 +7,7 @@ const {signin, signout, signup, getUsers} = require('../controllers/UserControll
 
 
 router.get('/getusers',getUsers)  //for getting all the user info
-router.get('/signin',signin)  //for getting all the user info
+router.post('/signin',signin)  //for getting all the user info
 router.post('/signup',  signup); //for addusers
 router.get('/signout', signout); //for sign out
 

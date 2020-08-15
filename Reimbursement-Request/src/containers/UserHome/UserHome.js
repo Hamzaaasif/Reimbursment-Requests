@@ -3,6 +3,8 @@ import Tables from '../../components/Tables/Tables';
 import NavBar from '../../components/NavBar/NavBar';
 import {MDBContainer , MDBCard } from 'mdbreact'
 import ReqForm from '../../components/Form/ReqForm'
+import {isAutheticated , Signout} from '../../axios/auth'
+
 
 class userhome extends Component{
 
@@ -147,7 +149,15 @@ class userhome extends Component{
       money : "",
       open : "",
       error : ""
-    }
+    },
+    username : "",
+    userid:""
+  }
+
+  componentDidMount(){
+    const usernameOnline = isAutheticated().user.fname
+    const useridOnline = isAutheticated().user.employeeid
+    this.setState({username :usernameOnline , userid : useridOnline})
   }
 
   toggle = nr => () => {
@@ -199,10 +209,13 @@ class userhome extends Component{
         <NavBar 
         first={"Home"}
         firstRef= {"userhome"}
-        second = {"Sign out"}
+        second = {""}
         secondRef = {""}
-        Username = {"User (Employee)"}
-        empId = {678651}
+        third = {"Sign out"}
+        thirdRef = {""}
+        Username = {this.state.username}
+        Signout = {Signout}
+        empId = {this.state.userid}
         />
         <br/><br/>
         <MDBContainer>
