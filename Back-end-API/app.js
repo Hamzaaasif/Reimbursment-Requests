@@ -10,6 +10,7 @@ const Users = require('./routes/users')
 const reimburseReq = require('./routes/reimburseReq')
 
 //middlewares
+app.use(bodyParser.json())
 app.use(morgan("dev"));
 app.use(bodyParser.json())
 app.use(cookieParser());
