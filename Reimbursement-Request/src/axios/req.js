@@ -1,11 +1,11 @@
 import axios from 'axios';
 
 export const postReq = request =>{
-    axios.post(`http://localhost:8080/postreq`, request)
+    return axios.post(`http://localhost:8080/postreq`, request)
     .then((response) => {
-        console.log(response);
-      }, (error) => {
-        console.log(error);
+        return response.data;
+    }, (error) => {
+        return error.response.data;
     });
 };
 
