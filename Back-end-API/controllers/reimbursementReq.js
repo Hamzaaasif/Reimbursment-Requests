@@ -5,7 +5,7 @@ const pool = new Pool({
   host: 'localhost',
   database: 'reimbursment',
   password: 'admin',
-  port: 3307,
+  port: 5432,
 })
 
 exports.getRequests = (request, response) => {
@@ -19,7 +19,7 @@ exports.getRequests = (request, response) => {
 
 exports.getRequestsById = (request, response) => {
     const employeeid = request.params.id
-    console.log(employeeid)
+    console.log("idddd", employeeid)
 
     pool.query('SELECT * FROM requests WHERE employeeid = $1', [employeeid], (error, results) => {
         if (error) {
@@ -37,9 +37,10 @@ exports.postRequests = (request, response) => {
         comment,
         money,
         status,
-        date
     } = request.body
 
+    let date = new Date()
+    date = date.getDay() +"-"+date.getMonth()+"-"+date.getFullYear()
 
     pool.query('INSERT INTO requests (employeeid, reasons, comment, money, status, date) VALUES ($1,$2,$3,$4,$5,$6)', 
     [employeeid, reasons, comment, money, status, date], (error, results) => {

@@ -3,6 +3,10 @@ import Tables from '../../components/Tables/Tables';
 import NavBar from '../../components/NavBar/NavBar';
 import {MDBContainer , MDBCard } from 'mdbreact'
 import ReqForm from '../../components/Form/ReqForm'
+
+import {getReq} from '../../axios/req.js'
+import {getReqById} from '../../axios/req.js'
+
 import {isAutheticated , Signout} from '../../axios/auth'
 
 
@@ -12,17 +16,17 @@ class userhome extends Component{
     columns :[
       {
         label: '#',
-        field: 'id',
+        field: 'employeeid',
         sort: 'asc'
       },
       {
         label: 'Reason',
-        field: 'reason',
+        field: 'reasons',
         sort: 'asc'
       },
       {
         label: 'Comments',
-        field: 'comments',
+        field: 'comment',
         sort: 'asc'
       },
       {
@@ -42,104 +46,7 @@ class userhome extends Component{
       }
     ],
 
-    rows : [
-      {
-        'id': 1,
-        'reason': 'Need to update a computer',
-        'comments': 'Not fulfil our needs',
-        'money': '$200',
-        'status':'Pending',
-        'date':'12-jan-2020'
-      },
-      {
-        'id': 2,
-        'reason': 'Expenses for development',
-        'comments': 'Requiremnts for further work',
-        'money': '$200',
-        'status':'Declined',
-        'date':'12-jan-2020'
-      },
-      {
-        'id': 3,
-        'reason': 'New Furniture Required',
-        'comments': 'We need the most',
-        'money': '$200',
-        'status':'Approved',
-        'date':'12-jan-2020'
-      },
-      {
-        'id': 4,
-        'reason': 'Need to update a computer',
-        'comments': 'Not fulfil our needs',
-        'money': '$200',
-        'status':'Approved',
-        'date':'12-jan-2020'
-      },
-      {
-        'id': 5,
-        'reason': 'Need to update a computer',
-        'comments': 'Not fulfil our needs',
-        'money': '$200',
-        'status':'Declined',
-        'date':'12-jan-2020'
-      },
-      {
-        'id': 6,
-        'reason': 'Need to update a computer',
-        'comments': 'Not fulfil our needs',
-        'money': '$200',
-        'status':'Pending',
-        'date':'12-jan-2020'
-      },
-      {
-        'id': 7,
-        'reason': 'Need to update a computer',
-        'comments': 'Not fulfil our needs',
-        'money': '$200',
-        'status':'Approved',
-        'date':'12-feb-2020'
-      },
-      {
-        'id': 8,
-        'reason': 'Need to update a computer',
-        'comments': 'Not fulfil our needs',
-        'money': '$200',
-        'status':'Pending',
-        'date':'12-aug-2020'
-      },
-      {
-        'id': 9,
-        'reason': 'Need to update a computer  ' ,
-        'comments': 'Not fulfil our needs  ',
-        'money': '$200',
-        'status':'Approved',
-        'date':'12-july-2020'
-      },
-      {
-        'id': 10,
-        'reason': 'Need to update a computer',
-        'comments': 'Not fulfil our needs',
-        'money': '$200',
-        'status':'Declined',
-        'date':'12-jan-2020'
-      },
-      {
-        'id': 11,
-        'reason': 'Need to update a computer',
-        'comments': 'Not fulfil our needs',
-        'money': '$400',
-        'status':'Declined',
-        'date':'12-jan-2020'
-      },
-      {
-        'id': 12,
-        'reason': 'Need to update a computer',
-        'comments': 'Not fulfil our needs',
-        'money': '$200',
-        'status': 'Declined',
-        'date':'12-jan-2020'
-      }
-    ],
+    rows : [],
 
     modal14: false,
 
@@ -158,6 +65,29 @@ class userhome extends Component{
     const usernameOnline = isAutheticated().user.fname
     const useridOnline = isAutheticated().user.employeeid
     this.setState({username :usernameOnline , userid : useridOnline})
+    
+     // getReq().then( data => {
+    //   // console.log("Error :",data)
+    //   if(data.error)
+    //   {
+    //     this.setState({error:data.error})
+    //   }
+    //   else{
+    //     // this.setState({rows: data})
+    //   }
+    // })
+    
+    getReqById('zain').then( data => {
+      // console.log("Error :",data)
+      if(data.error)
+      {
+        this.setState({error: data.error})
+      }
+      else{
+        this.setState({rows: data})
+      }
+    })
+
   }
 
   toggle = nr => () => {

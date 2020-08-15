@@ -1,4 +1,4 @@
-
+const Pool = require('pg').Pool
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
 const expressjwt = require('express-jwt');
@@ -7,13 +7,12 @@ const expressjwt = require('express-jwt');
 
 
 //db connections
-const Pool = require('pg').Pool
 const pool = new Pool({
 user: "Admin",
 host: 'localhost',
 database: 'reimbursment',
 password: "admin",
-port: 3307,
+port: 5432,
 })
 
 
@@ -72,6 +71,7 @@ exports.signup = async (req, res) =>{
           });
       }
       else{
+
         res.status(400).json({
           error: "Employee Id is already taken"
         });
