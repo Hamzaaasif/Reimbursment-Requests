@@ -1,4 +1,4 @@
-
+const Pool = require('pg').Pool
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
 const expressjwt = require('express-jwt');
@@ -7,13 +7,12 @@ const expressjwt = require('express-jwt');
 
 
 //db connections
-const Pool = require('pg').Pool
 const pool = new Pool({
 user: "Admin",
 host: 'localhost',
 database: 'reimbursment',
 password: "admin",
-port: 3307,
+port: 5432,
 })
 
 
@@ -58,7 +57,6 @@ exports.signup = async (req, res) =>{
    
           let dbquery = `INSERT INTO users (fname, lname, password, userrole, employeeid) VALUES ($1 , $2 , $3 , $4 , $5);`;
           pool.query(dbquery , [fname,lname,password,userrole,employeeid] , (err,result) => {
-            console.log(result)
               if(err){
                   return res.status(400).json({
                       error : err 
@@ -72,8 +70,7 @@ exports.signup = async (req, res) =>{
           });
       }
       else{
-        console.log(result)
-          res.send("Employee Id is already taken ")
+          res.status(400).json({error: "Employee id is already taken"})
       }
   })
 }

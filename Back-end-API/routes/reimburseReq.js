@@ -10,9 +10,11 @@ const {
 
 } = require('../controllers/reimbursementReq')
 
+const {requestValidator} = require('../validators/validators')
+
 router.get('/getreq',getRequests)
 router.get('/getreqbyid/:id',getRequestsById)
-router.post('/postreq',postRequests)
+router.post('/postreq',requestValidator , postRequests)
 router.put('/updatereq/:id',updateRequests)
 router.delete('/deletereq/:id',deleteRequests)
 

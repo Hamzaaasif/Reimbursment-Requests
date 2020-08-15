@@ -1,4 +1,3 @@
-import React,{Component} from 'react'
 import axios from 'axios';
 
 export const postReq = request =>{
@@ -11,25 +10,26 @@ export const postReq = request =>{
 };
 
 export const getReq = () =>{
-    axios.get(`http://localhost:8080/getreq`)
+    return axios.get(`http://localhost:8080/getreq`)
     .then((response) => {
-        console.log(response);
+        return response.data;
     }, (error) => {
-    console.log(error);
+        return error.response.data;
     });
 };
 
-export const getReq = id =>{
-    axios.get(`http://localhost:8080/getreqbyid/:${id}`)
+export const getReqById = id =>{
+    console.log("idddd", id)
+    return axios.get(`http://localhost:8080/getreqbyid/${id}`)
     .then((response) => {
-        console.log(response);
+        return response.data;
     }, (error) => {
-    console.log(error);
+        return error.response.data;
     });
 };
 
 export const putReq = id =>{
-    axios.put(`http://localhost:8080/updatereq/:${id}`)
+    axios.put(`http://localhost:8080/updatereq/${id}`)
     .then((response) => {
         console.log(response);
     }, (error) => {

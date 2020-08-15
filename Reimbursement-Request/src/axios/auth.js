@@ -51,7 +51,6 @@ export const isAutheticated = ()=>{
   else{
     return false;
   }
-
 }
 
 
