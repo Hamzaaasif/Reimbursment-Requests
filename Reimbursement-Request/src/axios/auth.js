@@ -1,4 +1,6 @@
+
 export const Signin = user =>{
+  console.log(JSON.stringify(user))
   return fetch(`http://localhost:8080/signin`,{
     method:"POST",
     headers:{
@@ -8,7 +10,6 @@ export const Signin = user =>{
     body: JSON.stringify(user)
   })
   .then(response =>{
-
     return response.json();
   })
    .catch(err => console.log("Error ",err))
@@ -55,6 +56,7 @@ export const isAutheticated = ()=>{
 
 
 export const Adduser = user =>{
+  console.log("user: ",user )
   return fetch(`http://localhost:8080/signup`,{
     method:"POST",
     headers:{
@@ -64,7 +66,8 @@ export const Adduser = user =>{
     body:JSON.stringify(user)
   })
   .then(response =>{
-    return response.json()
+    console.log(response)
+    return response.json();
   })
   .catch(err =>console.log(err))
 }

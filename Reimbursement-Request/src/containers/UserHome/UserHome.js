@@ -3,9 +3,12 @@ import Tables from '../../components/Tables/Tables';
 import NavBar from '../../components/NavBar/NavBar';
 import {MDBContainer , MDBCard } from 'mdbreact'
 import ReqForm from '../../components/Form/ReqForm'
+
 import {getReq} from '../../axios/req.js'
 import {getReqById} from '../../axios/req.js'
-import {isAutheticated} from '../../axios/auth'
+
+import {isAutheticated , Signout} from '../../axios/auth'
+
 
 class userhome extends Component{
 
@@ -54,19 +57,16 @@ class userhome extends Component{
       open : "",
       error : ""
     },
-
-    username:"",
+    username : "",
     userid:""
-
-    
   }
 
   componentDidMount(){
-
-    let username = isAutheticated().user.fname
-    let  userid = isAutheticated().user.employeeid
-    this.setState({username: username, userid: userid})
-    // getReq().then( data => {
+    const usernameOnline = isAutheticated().user.fname
+    const useridOnline = isAutheticated().user.employeeid
+    this.setState({username :usernameOnline , userid : useridOnline})
+    
+     // getReq().then( data => {
     //   // console.log("Error :",data)
     //   if(data.error)
     //   {
@@ -76,7 +76,7 @@ class userhome extends Component{
     //     // this.setState({rows: data})
     //   }
     // })
-
+    
     getReqById('zain').then( data => {
       // console.log("Error :",data)
       if(data.error)
@@ -139,9 +139,12 @@ class userhome extends Component{
         <NavBar 
         first={"Home"}
         firstRef= {"userhome"}
-        second = {"Sign out"}
+        second = {""}
         secondRef = {""}
+        third = {"Sign out"}
+        thirdRef = {""}
         Username = {this.state.username}
+        Signout = {Signout}
         empId = {this.state.userid}
         />
         <br/><br/>

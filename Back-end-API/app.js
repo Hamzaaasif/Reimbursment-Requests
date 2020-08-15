@@ -4,7 +4,9 @@ const app = express()
 const morgan = require('morgan')
 const bodyParser = require('body-parser')
 const cookieParser = require('cookie-parser')
+
 const expressvalidator = require('express-validator');
+
 const cors = require('cors')
 
 //routes files
@@ -15,6 +17,7 @@ const reimburseReq = require('./routes/reimburseReq')
 app.use(bodyParser.json())
 app.use(morgan("dev"));
 app.use(bodyParser.json())
+app.use(cors());
 app.use(cookieParser());
 app.use(expressvalidator())
 app.use(cors())

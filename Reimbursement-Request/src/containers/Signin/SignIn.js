@@ -6,7 +6,7 @@ import {Signin , auththenticate} from '../../axios/auth'
 
 class signin extends React.Component {
   state = {
-    userid:"",
+    employeeid:"",
     password:"",
     loading : false,
     redirectToRefer : false,
@@ -23,10 +23,10 @@ class signin extends React.Component {
   ClickSubmit= event =>{
     event.preventDefault();
     this.setState({loading:true})
-    const {userid , password} = this.state;
+    const {employeeid , password} = this.state;
 
     const user = {
-      userid,
+      employeeid,
       password
     };
 
@@ -36,8 +36,7 @@ class signin extends React.Component {
         this.setState({error:data.error , loading:false})
       }
       else{
-        console.log(data)
-        auththenticate(data , ()=>{ 
+          auththenticate(data , ()=>{ 
           this.setState({redirectToRefer:true  , loading:false})
         })
       }
@@ -48,7 +47,7 @@ class signin extends React.Component {
 
   render() {
     const smallStyle = { fontSize: '0.8rem'}
-    const {userid,password , redirectToRefer ,  loading , error} = this.state
+    const {employeeid,password , redirectToRefer ,  loading , error} = this.state
 
     if(redirectToRefer)
     {
@@ -69,22 +68,27 @@ class signin extends React.Component {
                   {error}
              </div>
 
-             {loading ?(
-               <div>
-                 <h2>Loading...</h2>
-               </div>
-             ) : (""
-             )}
+             
 
              <MDBCardBody className="mx-5">
+             
               
                 <MDBCardHeader className="view view-cascade gradient-card-header blue-gradient d-flex justify-content-between align-items-center py-2 mb-3  ">
                  <h5>SIGN IN</h5>
+
+                 {loading ?(
+                <div className="spinner-border text-primary" role="status">
+                <span className="sr-only">Loading...</span>
+              </div>
+             ) : (""
+             )}
                     </MDBCardHeader>
                 <br/><br/>
 
-                <MDBInput label="Employee ID" group type="email" validate error="wrong" success="right" value={userid}
-                onChange={this.handleChange("userid")}
+                
+
+                <MDBInput label="Employee ID" group type="email" validate error="wrong" success="right" value={employeeid}
+                onChange={this.handleChange("employeeid")}
                 />
                 
                 <MDBInput label="Password" group type="password" validate containerClass="mb-0"

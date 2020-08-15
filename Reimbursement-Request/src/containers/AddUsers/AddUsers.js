@@ -3,39 +3,72 @@ import React , {Component} from 'react'
 import { MDBContainer, MDBRow, MDBCol, MDBInput, MDBBtn ,MDBCard, MDBCardHeader,MDBFormInline , MDBCardBody } from 'mdbreact';
 import NavBar from '../../components/NavBar/NavBar'
 
+import {Adduser} from '../../axios/auth'
+
 
 class adduser extends Component {
   state = {
+    fname : "",
+    lname:"",
+    password:"",
+    userrole:"manager",
+    employeeid:"",
     error : "",
     open : "",
-    radio: 2
+    radio: 1
   }
 
-  handleChange =()=>
+  handleChange = Name =>(event)=>
   {
-    this.setState({
-      open : "",
-      error : ""
-  })
+    this.setState({error : ""})
+    this.setState({[Name]: event.target.value});
+    console.log(event.target.value)
 }
 
-  handleCheckbox =()=>{
-    
-  }
 
   onClick = nr => () => {
     this.setState({
       radio: nr
     });
+    if(nr ===1)
+    {
+
+      this.setState({userrole :"manager"})
+    }
+    else{
+      this.setState({userrole:"employee"})
+    }
+    
   }
 
-  onSave = ()=>{
-    this.setState({error:"",open:"none"})
+  onSave = event =>{
+    event.preventDefault()
+    const {fname , lname , password ,userrole , employeeid} = this.state
+    const user = {fname , lname,password,userrole,employeeid}
+    Adduser(user).then(data=>{
+      console.log(data)
+      if(data.error)
+      {
+        this.setState({error:data.error , open:false})
+      }
+      else{
+        this.setState({
+          error:"",
+          fname:"",
+          lname:"",
+          password:"",
+          userrole:"manager",
+          employeeid:"",
+          open:true
+
+        })
+      }
+    })
   }
 
   render(){
 
-    const {error , open} = this.state
+    const {fname,lname,password , employeeid ,error , open} = this.state
     return (
       <div>
 
@@ -73,21 +106,35 @@ class adduser extends Component {
 
                     <br/>
 
-                <MDBInput label="Employee ID" onChange={this.handleChange} group type="text" validate error="wrong" success="right"/>
-                <MDBInput label="First Name" onChange={this.handleChange} group type="text" validate containerClass="mb-0"/>
-                <MDBInput label="Last Name" onChange={this.handleChange} group type="text" validate containerClass="mb-0"/>
-                <MDBInput label="Password" onChange={this.handleChange} group type="password" validate containerClass="mb-0"/>
+                <MDBInput label="Employee ID" onChange={this.handleChange("employeeid")} 
+                group type="text" validate error="wrong" success="right"
+                value={employeeid}
+                />
 
-                
-                {/* <p className="dark-grey-text text-left " style={smallStyle}>Role :</p> */}
+                <MDBInput label="First Name" onChange={this.handleChange("fname")} group type="text" validate containerClass="mb-0"
+                value={fname}
+                />
+                <MDBInput label="Last Name" onChange={this.handleChange("lname")} group type="text" validate containerClass="mb-0"
+                value={lname}
+                />
+
+                <MDBInput label="Password" onChange={this.handleChange("password")} group type="password" validate containerClass="mb-0"
+                value={password}
+                />
+
+              
 
                 <MDBFormInline  className=" d-flex justify-content-center ">
                   <div size ="lg" className="ml-3">
 
-                <MDBInput  onClick={this.onClick(1)} checked={this.state.radio===1 ? true : false}        label="Management" type="radio" id="radio1" size="lg"/>
+                <MDBInput  onClick={this.onClick(1)} checked={this.state.radio===1 ? true : false}        label="Management" type="radio" id="radio1" size="lg"
+              
+                />
                 </div>
                 <div size ="lg" className ="ml-3 ">
-                <MDBInput onClick={this.onClick(2)} checked={this.state.radio===2 ? true : false} label="Non Management" type="radio" id="radio2" />
+                <MDBInput onClick={this.onClick(2)} checked={this.state.radio===2 ? true : false} label="Non Management" type="radio" id="radio2" 
+                
+                />
                 </div>
                 
                 </MDBFormInline>
@@ -99,11 +146,6 @@ class adduser extends Component {
 
               </MDBCardBody>
 
-              
-
-              {/* <MDBModalFooter className="mx-5 pt-3 mb-1">
-                <p className="grey-text d-flex justify-content-end" style={smallStyle}>Not a member ? <a href="#!" className="blue-text ml-1"> Contact to manager</a></p>
-              </MDBModalFooter> */}
 
             </MDBCard>
           </MDBCol>
