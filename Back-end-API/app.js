@@ -1,16 +1,22 @@
 const express = require( 'express')
 const app = express()
+
 const morgan = require('morgan')
+const bodyParser = require('body-parser')
+const cookieParser = require('cookie-parser')
 
 //routes files
-const Users = require('../Back-end-API/routes/users')
-
+const Users = require('./routes/users')
+const reimburseReq = require('./routes/reimburseReq')
 
 //middlewares
 app.use(morgan("dev"));
+app.use(bodyParser.json())
+app.use(cookieParser());
 
 //routes
-app.use("/",Users);
+app.use("/", Users);
+app.use("/", reimburseReq);
 
 
 
