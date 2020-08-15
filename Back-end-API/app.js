@@ -1,12 +1,15 @@
 const express = require( 'express')
 const app = express()
 const morgan = require('morgan')
+const bodyParser = require('body-parser')
+
 
 //routes files
 const Users = require('../Back-end-API/routes/users')
 
 
 //middlewares
+app.use(bodyParser.json())
 app.use(morgan("dev"));
 
 //routes
