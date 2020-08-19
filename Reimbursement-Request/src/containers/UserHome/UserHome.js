@@ -73,24 +73,30 @@ class userhome extends Component{
     if(userroleOnline === "manager"){
       this.setState({ismanager:true})
         getReq().then( data => {
-        if(data.error)
-        {
-          this.setState({error:data.error})
-        }
-        else{
-          this.setState({rows: data})
-        }
+          if(data == "undefined"){return}
+          else{
+            if(data.error)
+            {
+              this.setState({error:data.error})
+            }
+            else{
+              this.setState({rows: data})
+            }
+          }
       })
     }
     else{
         getReqById(isAutheticated().user.employeeid).then( data => {
-        if(data.error)
-        {
-          this.setState({error: data.error})
-        }
-        else{
-          this.setState({rows: data})
-        }
+          if(data == "undefined"){return}
+          else{
+            if(data.error)
+            {
+              this.setState({error:data.error})
+            }
+            else{
+              this.setState({rows: data})
+            }
+          }
       })
     }
     
@@ -114,11 +120,10 @@ class userhome extends Component{
     } = this.state
 
     const req = {reasons, comment, money , employeeid:isAutheticated().user.employeeid, status:"Pending"}
-    console.log("req",req)
     postReq(req).then( data => {
       if(data.error)
       {
-        this.setState({error:data.error})
+        this.setState({error:data.error, open: ""})
       }
       else{
         

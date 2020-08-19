@@ -19,7 +19,6 @@ export const getReq = () =>{
 };
 
 export const getReqById = id =>{
-    console.log("idddd", id)
     return axios.get(`http://localhost:8080/getreqbyid/${id}`)
     .then((response) => {
         return response.data;
