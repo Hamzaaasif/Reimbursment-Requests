@@ -8,6 +8,7 @@ import {getReq} from '../../axios/req.js'
 import {getReqById} from '../../axios/req.js'
 import {postReq} from '../../axios/req.js'
 import {isAutheticated , Signout} from '../../axios/auth'
+import {MDBIcon  } from 'mdbreact';
 
 
 class userhome extends Component{
@@ -49,6 +50,7 @@ class userhome extends Component{
     rows : [],
 
     modal14: false,
+    search:"",
 
     
       reasons : "",
@@ -160,10 +162,46 @@ class userhome extends Component{
 
 
 }
+
+search =()=> event =>{
+  console.log(event.target.value)
+  this.setState({search:event.target.value})
+}
  
+
+handlearrow(index) {
+  console.log(index)
+  this.setState({
+    modal14: !this.state.modal14,reasons:index.reasons,comment:index.comment , money:index.money
+  });
+  
+}
   render ()
   {
-    const {ismanager} = this.state
+    const {ismanager,search } = this.state
+    
+    const appendRow = this.state.rows.map((row,index ) => {
+      
+      if(search!="" && row.id.toString().indexOf(search) === -1 && row.reasons.toLowerCase().indexOf(search.toLowerCase()) === -1 && row.status.toLowerCase().indexOf(search.toLowerCase()) && row.date.toLowerCase().indexOf(search.toLowerCase()) && row.comment.toLowerCase().indexOf(search.toLowerCase()) && row.money.toString().indexOf(search) === -1 ) 
+      {
+      return null
+      }
+      return (
+        
+        <tr key={index}>
+            <td>{row.id}</td>
+            <td>{row.date}</td>
+            <td>{row.reasons}</td>
+            <td>{row.comment}</td>
+            <td>{row.money}</td>
+            <td>{row.status}</td>
+            <td>
+              <MDBIcon icon="angle-double-right fa-2x" onClick={() => this.handlearrow(row)} />
+            </td>
+          </tr>
+      )
+    });
+
     return(
       
       <MDBContainer fluid >
@@ -205,7 +243,9 @@ class userhome extends Component{
        <Tables 
        Mainheading = {"REIMBURSEMENT REQUESTS"}
        formRef = {"userform"}
-       data = {this.state}
+       data = {appendRow}
+       search={this.search()}
+      
        />
 
        ):(
@@ -216,7 +256,9 @@ class userhome extends Component{
         formheading= {"SUBMIT REQUEST"}
         formRef = {"userform"}
         toggle = {this.toggle(14)}
-        data = {this.state}
+        data = {appendRow}
+        search={this.search()}
+        
         />
 
         

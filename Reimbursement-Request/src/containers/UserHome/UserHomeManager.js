@@ -2,34 +2,31 @@ import React,{Component} from 'react';
 import Tables from '../../components/Tables/Tables';
 import NavBar from '../../components/NavBar/NavBar';
 import {MDBContainer , MDBCard } from 'mdbreact'
+import ReqForm from '../../components/Form/ReqForm'
 
-class userhomeManager extends Component{
+import {getReq} from '../../axios/req.js'
+import {getReqById} from '../../axios/req.js'
+import {postReq} from '../../axios/req.js'
+import {isAutheticated , Signout} from '../../axios/auth'
+import { MDBTable, MDBIcon, MDBCardBody ,MDBCardHeader ,MDBTableBody,MDBTableHead ,MDBBtn  } from 'mdbreact';
+
+class userhome extends Component{
 
   state = {
     columns :[
       {
         label: '#',
-        field: 'id',
-        sort: 'asc'
-      },
-      {
-        label: 'Date',
-        field: 'date',
-        sort: 'asc'
-      },
-      {
-        label: 'Employee',
-        field: 'name',
+        field: 'employeeid',
         sort: 'asc'
       },
       {
         label: 'Reason',
-        field: 'reason',
+        field: 'reasons',
         sort: 'asc'
       },
       {
         label: 'Comments',
-        field: 'comments',
+        field: 'comment',
         sort: 'asc'
       },
       {
@@ -38,152 +35,230 @@ class userhomeManager extends Component{
         sort: 'asc'
       },
       {
-        label: 'Approved/Denied',
+        label: 'Status',
         field: 'status',
+        sort: 'asc'
+      },
+      {
+        label: 'Date',
+        field: 'date',
+        sort: 'asc'
+      },
+      {
+        label: 'Approved/Denied',
+        field: 'button',
         sort: 'asc'
       }
     ],
 
-    rows : [
-      {
-        'id': 1,
-        'name':'Jack',
-        'reason': 'Need to update a computer',
-        'comments': 'Not fulfil our needs',
-        'money': '$200',
-        'status':<div><i class="far fa-thumbs-up far ml-3 fa-2x" ></i> <i class="ml-3 far fa-thumbs-down fa-2x"></i></div>,
-        'date':'12-jan-2020'
-      },
-      {
-        'id': 2,
-        'name':'Tom',
-        'reason': 'Expenses for development',
-        'comments': 'Requiremnts for further work',
-        'money': '$200',
-        'status':<div><i class="far fa-thumbs-up far ml-3 fa-2x" ></i> <i class="ml-3 far fa-thumbs-down fa-2x"></i></div>,
-        'date':'12-jan-2020'
-      },
-      {
-        'id': 3,
-        'name':'Hamza',
-        'reason': 'New Furniture Required',
-        'comments': 'We need the most',
-        'money': '$200',
-        'status':<div><i class="far fa-thumbs-up far ml-3 fa-2x" ></i> <i class="ml-3 far fa-thumbs-down fa-2x"></i></div>,
-        'date':'12-jan-2020'
-      },
-      {
-        'id': 4,
-        'name':'King',
-        'reason': 'Need to update a computer',
-        'comments': 'Not fulfil our needs',
-        'money': '$200',
-        'status':<div><i class="far fa-thumbs-up far ml-3 fa-2x" ></i> <i class="ml-3 far fa-thumbs-down fa-2x"></i></div>,
-        'date':'12-jan-2020'
-      },
-      {
-        'id': 5,
-        'name':'Kate',
-        'reason': 'Need to update a computer',
-        'comments': 'Not fulfil our needs',
-        'money': '$50',
-        'status':<div><i class="far fa-thumbs-up far ml-3 fa-2x" ></i> <i class="ml-3 far fa-thumbs-down fa-2x"></i></div>,
-        'date':'12-jan-2020'
-      },
-      {
-        'id': 6,
-        'name':'Jack',
-        'reason': 'Need to update a computer',
-        'comments': 'Not fulfil our needs',
-        'money': '$100',
-        'status':<div><i class="far fa-thumbs-up far ml-3 fa-2x" ></i> <i class="ml-3 far fa-thumbs-down fa-2x"></i></div>,
-        'date':'12-jan-2020'
-      },
-      {
-        'id': 7,
-        'name':'Jack',
-        'reason': 'Need to update a computer',
-        'comments': 'Not fulfil our needs',
-        'money': '$700',
-        'status':<div><i class="far fa-thumbs-up far ml-3 fa-2x" ></i> <i class="ml-3 far fa-thumbs-down fa-2x"></i></div>,
-        'date':'12-feb-2020'
-      },
-      {
-        'id': 8,
-        'name':'Jack',
-        'reason': 'Need to update a computer',
-        'comments': 'Not fulfil our needs',
-        'money': '$15311',
-        'status':<div><i class="far fa-thumbs-up far ml-3 fa-2x" ></i> <i class="ml-3 far fa-thumbs-down fa-2x"></i></div>,
-        'date':'12-aug-2020'
-      },
-      {
-        'id': 9,
-        'name':'Jack',
-        'reason': 'Need to update a computer  ' ,
-        'comments': 'Not fulfil our needs  ',
-        'money': '$1241',
-        'status':<div><i class="far fa-thumbs-up far ml-3 fa-2x" ></i> <i class="ml-3 far fa-thumbs-down fa-2x"></i></div>,
-        'date':'12-july-2020'
-      },
-      {
-        'id': 10,
-        'name':'Jack',
-        'reason': 'Need to update a computer',
-        'comments': 'Not fulfil our needs',
-        'money': '$1000',
-        'status':<div><i class="far fa-thumbs-up far ml-3 fa-2x" ></i> <i class="ml-3 far fa-thumbs-down fa-2x"></i></div>,
-        'date':'12-jan-2020'
-      },
-      {
-        'id': 11,
-        'name':'Jack',
-        'reason': 'Need to update a computer',
-        'comments': 'Not fulfil our needs',
-        'money': '$400',
-        'status':<div><i class="far fa-thumbs-up far ml-3 fa-2x" ></i> <i class="ml-3 far fa-thumbs-down fa-2x"></i></div>,
-        'date':'12-jan-2020'
-      }
-    ],
+    rows : [],
 
+    modal14: false,
+
+    
+      reasons : "",
+      comment :"",
+      money : "",
+      open : "",
+      error : "",
+   
+
+    username : "",
+    userid:"",
+    ismanager:false
+  }
+
+  componentDidMount(){
+    this.fetchData()
 
   }
+
+  fetchData (){
+
+    const usernameOnline = isAutheticated().user.fname
+    const useridOnline = isAutheticated().user.employeeid
+    const userroleOnline = isAutheticated().user.userrole
+    this.setState({username :usernameOnline , userid : useridOnline})
+    
+    
+    if(userroleOnline === "manager"){
+      this.setState({ismanager:true})
+        getReq().then( data => {
+        if(data.error)
+        {
+          this.setState({error:data.error})
+        }
+        else{
+          this.setState({rows: data})
+        }
+      })
+    }
+    else{
+        getReqById(isAutheticated().user.employeeid).then( data => {
+        if(data.error)
+        {
+          this.setState({error: data.error})
+        }
+        else{
+          this.setState({rows: data})
+        }
+      })
+    }
+    
+  }
+
+
+  toggle = nr => () => {
+    let modalNumber = 'modal' + nr
+    this.setState({
+    [modalNumber]: !this.state[modalNumber]
+  });
+    
+  }
+
+  OnSaveForm = ()=>{
+    const {
+      reasons,
+      comment,
+      money
+    } = this.state
+
+    const req = {reasons, comment, money , employeeid:isAutheticated().user.employeeid, status:"Pending"}
+    postReq(req).then( data => {
+      if(data.error)
+      {
+        this.setState({error:data.error})
+      }
+      else{
+        
+
+        this.setState({
+
+          
+          reasons : "",
+          comment :"",
+          money : "",
+          open : "Inserted",
+          error : ""
+          
+          
+  
+        })
+        this.fetchData()
+
+      }
+
+    })
+
+    
+      
+  }
+
+  OnhandleChange = (Name)=>(event)=>{
+
+    this.setState({ error:"", open:""})
+    this.setState({ 
+      
+        [Name]:event.target.value
+      
+    })
+}
+
+deleteItem(index) {
+  console.log(index)
+  let temprow = this.state.rows;
+  temprow.splice(index, 1);
+  this.setState({rows: temprow });
+  
+}
 
 
  
-  render ()
-  {
-    return(
+render() {    
+  const {ismanager ,rows} = this.state
+  this.state.rows = rows.map((row,index ) => {
+    return (
       
-      <MDBContainer fluid >
-       
-       <NavBar 
-        first={"Home"}
-        firstRef= {"userhome"}
-        second = {"Add Users"}
-        secondRef = {"adduser"}
-        third = {"Sign Out"}
-        thirdRef = {""}
-        Username = {"User (Manager)"}
-        empId = {120969}
-        />
+      <tr key={index}>
+          <td>{row.id}</td>
+          <td>{row.comment}</td>
+          <td>{row.reasons}</td>
+          <td>{row.money}</td>
+          <td>
+            <MDBIcon icon="angle-double-right fa-2x" onClick={() => this.deleteItem(row.id)} />
+          </td>
+        </tr>
+    )
+  });
+  
 
-        <br/><br/>
-        <MDBContainer>
-        <MDBCard>
-        
-        <Tables 
-        Mainheading = {"REIMBURSEMENT REQUESTS"}
-        formRef = {"userform"}
-        data = {this.state}
-        />
+  
+  return (
+    // <div>
+    //   <div style={{ textAlign: "center" }}>
+    //     <h1>Editable Bootstrap Modal In React</h1>
+    //     <h6>Bootstrap 4.0.0-beta.3</h6>
+    //   </div>
+    //   <table className="table table-striped">
+    //     <tbody>
+    //       {newRows}
+    //     </tbody>
+    //   </table>
+      
+    // </div>
 
-        </MDBCard>
-        </MDBContainer>
-      </MDBContainer>
+    <MDBContainer>
+    <MDBCard>
+      <MDBCardHeader className="view view-cascade gradient-card-header blue-gradient d-flex justify-content-between align-items-center py-3 mx-4 mb-3  ">
+
+    <div>
+     
+      <MDBBtn onine rounded size="sm" color="white" className="px-2">
+      <i href="#win" className="fa fa-th-large mt-0"></i>
+      </MDBBtn>
+
+      <MDBBtn outline rounded size="sm" color="white" className="px-2">
+      <i className="fa fa-columns mt-0"></i>
+      </MDBBtn>
+
+    </div>
+
+  <h4><b>Manager Home</b></h4>
+
+    <div>
+
+
+      <MDBBtn outline rounded size="sm" color="white" className="px-2 py-2">
+      <i  onClick ={"props.toggle"} className="fas fa-plus mt-0"> User MAnager</i>
+      </MDBBtn>
+
+    </div>
+
+</MDBCardHeader>
     
-    );
-  }
+    <MDBCardBody cascade>
+      <MDBTable>
+    <MDBTableHead>
+      <tr>
+        <th>employeeid</th>
+        <th>Comment</th>
+        <th>Reason</th>
+        <th>Money</th>
+      </tr>
+    </MDBTableHead>
+    <MDBTableBody>
+
+      {this.state.rows}
+    </MDBTableBody>
+  </MDBTable>
+        </MDBCardBody>
+
+  </MDBCard>
+  </MDBContainer>
+
+  );
+}
   
 }
-export default userhomeManager;
+export default userhome;
+
