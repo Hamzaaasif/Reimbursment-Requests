@@ -64,6 +64,12 @@ class userhome extends Component{
   }
 
   componentDidMount(){
+    this.fetchData()
+
+  }
+
+  fetchData (){
+
     const usernameOnline = isAutheticated().user.fname
     const useridOnline = isAutheticated().user.employeeid
     const userroleOnline = isAutheticated().user.userrole
@@ -72,42 +78,35 @@ class userhome extends Component{
     
     if(userroleOnline === "manager"){
       this.setState({ismanager:true})
-        getReq().then( data => {
-          if(data == "undefined"){return}
-          else{
-            if(data.error)
-            {
-              this.setState({error:data.error})
-            }
-            else{
-              this.setState({rows: data})
-            }
-          }
+      getReq().then( data => {
+        if(data.error)
+        {
+          this.setState({error:data.error})
+        }
+        else{
+          this.setState({rows: data})
+        }
       })
     }
     else{
-        getReqById(isAutheticated().user.employeeid).then( data => {
-          if(data == "undefined"){return}
-          else{
-            if(data.error)
-            {
-              this.setState({error:data.error})
-            }
-            else{
-              this.setState({rows: data})
-            }
-          }
+      getReqById(isAutheticated().user.employeeid).then( data => {
+        if(data.error)
+        {
+          this.setState({error:data.error})
+        }
+        else{
+          this.setState({rows: data})
+        }
       })
     }
     
-    
-
   }
+
 
   toggle = nr => () => {
     let modalNumber = 'modal' + nr
     this.setState({
-    [modalNumber]: !this.state[modalNumber]
+    [modalNumber]: !this.state[modalNumber], open: ""
   });
     
   }
@@ -137,20 +136,22 @@ class userhome extends Component{
           open : "Inserted",
           error : ""
           
+          
   
         })
-
+        this.fetchData()
 
       }
+
     })
 
-
+    
       
   }
 
   OnhandleChange = (Name)=>(event)=>{
 
-    this.setState({ error:""})
+    this.setState({ error:"", open:""})
     this.setState({ 
       
         [Name]:event.target.value

@@ -42,13 +42,13 @@ const Tables = (props) => {
     <MDBCardBody cascade>
           <MDBTable btn fixed align="right">
             <MDBDataTable
-            className ="text-center text-justify"  
+              className ="text-center text-justify"  
               bordered
               small
               striped
               data={props.data}/>
           </MDBTable>
-        </MDBCardBody>
+      </MDBCardBody>
 
   </MDBCard>
           

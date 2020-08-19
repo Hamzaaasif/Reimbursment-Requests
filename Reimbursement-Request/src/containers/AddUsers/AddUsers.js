@@ -22,6 +22,7 @@ class adduser extends Component {
   {
     this.setState({error : ""})
     this.setState({[Name]: event.target.value});
+    
 }
 
 
@@ -45,6 +46,7 @@ class adduser extends Component {
     const {fname , lname , password ,userrole , employeeid} = this.state
     const user = {fname , lname,password,userrole,employeeid}
     Adduser(user).then(data=>{
+    
       if(data.error)
       {
         this.setState({error:data.error , open:false})

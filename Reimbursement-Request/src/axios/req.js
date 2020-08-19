@@ -19,6 +19,7 @@ export const getReq = () =>{
 };
 
 export const getReqById = id =>{
+  
     return axios.get(`http://localhost:8080/getreqbyid/${id}`)
     .then((response) => {
         return response.data;
@@ -30,7 +31,7 @@ export const getReqById = id =>{
 export const putReq = id =>{
     axios.put(`http://localhost:8080/updatereq/${id}`)
     .then((response) => {
-        console.log(response);
+        
     }, (error) => {
     console.log(error);
     });
