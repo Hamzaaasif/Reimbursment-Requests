@@ -72,9 +72,9 @@ class userhome extends Component{
 
   fetchData (){
 
-    const usernameOnline = isAutheticated().user.fname
-    const useridOnline = isAutheticated().user.employeeid
+    const usernameOnline = isAutheticated().user.fname +' ' +isAutheticated().user.lname
     const userroleOnline = isAutheticated().user.userrole
+    const useridOnline = isAutheticated().user.employeeid + ' ('+userroleOnline+')'
     this.setState({username :usernameOnline , userid : useridOnline})
     
     
@@ -131,14 +131,11 @@ class userhome extends Component{
 
         this.setState({
 
-          
           reasons : "",
           comment :"",
           money : "",
           open : "Inserted",
-          error : ""
-          
-          
+          error : "",
   
         })
         this.fetchData()
@@ -182,14 +179,14 @@ handlearrow(index) {
     
     const appendRow = this.state.rows.map((row,index ) => {
       
-      if(search!="" && row.id.toString().indexOf(search) === -1 && row.reasons.toLowerCase().indexOf(search.toLowerCase()) === -1 && row.status.toLowerCase().indexOf(search.toLowerCase()) && row.date.toLowerCase().indexOf(search.toLowerCase()) && row.comment.toLowerCase().indexOf(search.toLowerCase()) && row.money.toString().indexOf(search) === -1 ) 
+      if(search!="" && row.employeeid.toString().indexOf(search) === -1 && row.reasons.toLowerCase().indexOf(search.toLowerCase()) === -1 && row.status.toLowerCase().indexOf(search.toLowerCase()) && row.date.toLowerCase().indexOf(search.toLowerCase()) && row.comment.toLowerCase().indexOf(search.toLowerCase()) && row.money.toString().indexOf(search) === -1 ) 
       {
       return null
       }
       return (
         
         <tr key={index}>
-            <td>{row.id}</td>
+            <td>{row.employeeid}</td>
             <td>{row.date}</td>
             <td>{row.reasons}</td>
             <td>{row.comment}</td>
@@ -209,7 +206,7 @@ handlearrow(index) {
        {ismanager ?(
         <NavBar 
         first={"Home"}
-        firstRef= {"userhome"}
+        firstRef= {""}
         second = {"Add Users"}
         secondRef = {"adduser"}
         third = {"Sign Out"}
@@ -223,7 +220,7 @@ handlearrow(index) {
 
       <NavBar 
       first={"Home"}
-      firstRef= {"userhome"}
+      firstRef= {""}
       second = {""}
       secondRef = {""}
       third = {"Sign out"}
@@ -239,15 +236,31 @@ handlearrow(index) {
         <MDBCard>
         
         {ismanager ?(
-
+        <>
        <Tables 
        Mainheading = {"REIMBURSEMENT REQUESTS"}
        formRef = {"userform"}
        data = {appendRow}
        search={this.search()}
-      
        />
 
+       <ReqForm 
+        btn1={"Close"}
+        btn1action = {this.toggle(14)}
+        modal14 = {this.state.modal14}
+        MainHeading = {"REQUEST"}
+        error={this.state.error}
+        open={this.state.open}
+        reasons={this.state.reasons}
+        money={this.state.money}
+        comment={this.state.comment}
+
+        
+        OnChange = {this.OnhandleChange}
+        btn2={"Save"}
+        btn2action = {this.OnSaveForm}
+        />
+        </>
        ):(
 
         <>
@@ -263,7 +276,8 @@ handlearrow(index) {
 
         
          <ReqForm 
-        toggle = {this.toggle(14)}
+        btn1={"Close"}
+        btn1action = {this.toggle(14)}
         modal14 = {this.state.modal14}
         MainHeading = {"SUBMIT REQUEST"}
         error={this.state.error}
@@ -275,7 +289,8 @@ handlearrow(index) {
 
         
         OnChange = {this.OnhandleChange}
-        Onsave = {this.OnSaveForm}
+        btn2={"Save"}
+        btn2action = {this.OnSaveForm}
         />
         </>
 )}

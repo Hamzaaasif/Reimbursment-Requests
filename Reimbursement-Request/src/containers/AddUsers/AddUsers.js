@@ -4,6 +4,7 @@ import { MDBContainer, MDBRow, MDBCol, MDBInput, MDBBtn ,MDBCard, MDBCardHeader,
 import NavBar from '../../components/NavBar/NavBar'
 
 import {Adduser} from '../../axios/auth'
+import {isAutheticated} from '../../axios/auth'
 
 
 class adduser extends Component {
@@ -15,9 +16,19 @@ class adduser extends Component {
     employeeid:"",
     error : "",
     open : "",
-    radio: 1
+    radio: 1,
+    ismanager :false
   }
 
+  componentDidMount()
+  {
+    const ismanagerole = isAutheticated().user.userrole
+    if(ismanagerole === "manager" )
+    {
+      this.setState({ismanager :true})
+    }
+    
+  }
   handleChange = Name =>(event)=>
   {
     this.setState({error : ""})
@@ -68,13 +79,19 @@ class adduser extends Component {
 
   render(){
 
-    const {fname,lname,password , employeeid ,error , open} = this.state
+    const {fname,lname,password , employeeid ,error , open , ismanager} = this.state
+    
+    
     return (
-      <div>
 
+      
+        
+      <div>
+        {ismanager ?(
+        <>
       <NavBar 
         first={"Home"}
-        firstRef= {"usermanager"}
+        firstRef= {""}
         second = {"Add Users"}
         secondRef = {"adduser"}
         third = {"Sign Out"}
@@ -151,7 +168,13 @@ class adduser extends Component {
           </MDBCol>
         </MDBRow>
         </MDBContainer>
-        </div>
+        </>
+        
+      ):(
+      <h2>You don't have access ...</h2>
+      )}
+
+      </div>
     );
   }
 

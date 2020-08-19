@@ -38,8 +38,9 @@ exports.postRequests = (request, response) => {
         status,
     } = request.body
 
-    let date = new Date()
-    date = date.getDay() +"-"+date.getMonth()+"-"+date.getFullYear()
+    var date = new Date()
+    month = date.getMonth()+1
+    date = date.getDate() + "-" + month + "-" + date.getFullYear()
 
     pool.query('INSERT INTO requests (employeeid, reasons, comment, money, status, date) VALUES ($1,$2,$3,$4,$5,$6)', 
     [employeeid, reasons, comment, money, status, date], (error, results) => {
