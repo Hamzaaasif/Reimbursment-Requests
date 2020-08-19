@@ -16,7 +16,7 @@ class signin extends React.Component {
   handleChange = Name => event=>{
     this.setState({ error : ""})
     this.setState({[Name] : event.target.value})
-    console.log(event.target.value)
+
   }
 
 

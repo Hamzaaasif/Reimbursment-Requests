@@ -19,7 +19,6 @@ exports.getRequests = (request, response) => {
 
 exports.getRequestsById = (request, response) => {
     const employeeid = request.params.id
-    console.log("idddd", employeeid)
 
     pool.query('SELECT * FROM requests WHERE employeeid = $1', [employeeid], (error, results) => {
         if (error) {

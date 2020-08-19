@@ -33,7 +33,7 @@ export const Signout = () =>{
       method:"GET"
     })
     .then(response =>{
-      console.log("Sign out",response)
+    
       return response.json()
     })
     .catch(err=>console.log(err))
@@ -56,7 +56,7 @@ export const isAutheticated = ()=>{
 
 
 export const Adduser = user =>{
-  console.log("user: ",user )
+
   return fetch(`http://localhost:8080/signup`,{
     method:"POST",
     headers:{
@@ -66,7 +66,7 @@ export const Adduser = user =>{
     body:JSON.stringify(user)
   })
   .then(response =>{
-    console.log(response)
+
     return response.json();
   })
   .catch(err =>console.log(err))

@@ -64,6 +64,12 @@ class userhome extends Component{
   }
 
   componentDidMount(){
+    this.fetchData()
+
+  }
+
+  fetchData (){
+
     const usernameOnline = isAutheticated().user.fname
     const useridOnline = isAutheticated().user.employeeid
     const userroleOnline = isAutheticated().user.userrole
@@ -94,9 +100,8 @@ class userhome extends Component{
       })
     }
     
-    
-
   }
+
 
   toggle = nr => () => {
     let modalNumber = 'modal' + nr
@@ -114,7 +119,6 @@ class userhome extends Component{
     } = this.state
 
     const req = {reasons, comment, money , employeeid:isAutheticated().user.employeeid, status:"Pending"}
-    console.log("req",req)
     postReq(req).then( data => {
       if(data.error)
       {
@@ -132,20 +136,22 @@ class userhome extends Component{
           open : "Inserted",
           error : ""
           
+          
   
         })
-
+        this.fetchData()
 
       }
+
     })
 
-
+    
       
   }
 
   OnhandleChange = (Name)=>(event)=>{
 
-    this.setState({ error:""})
+    this.setState({ error:"", open:""})
     this.setState({ 
       
         [Name]:event.target.value
