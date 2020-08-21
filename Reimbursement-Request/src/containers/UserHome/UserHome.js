@@ -108,7 +108,7 @@ class userhome extends Component{
   toggle = nr => () => {
     let modalNumber = 'modal' + nr
     this.setState({
-    [modalNumber]: !this.state[modalNumber]
+    [modalNumber]: !this.state[modalNumber],error:"",open:""
   });
     
   }
@@ -210,7 +210,7 @@ handlearrow(index) {
         second = {"Add Users"}
         secondRef = {"adduser"}
         third = {"Sign Out"}
-        thirdRef = {""}
+        thirdRef = {"signin"}
         Username = {this.state.username}
         empId = {this.state.userid}
         Signout = {Signout}

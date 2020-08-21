@@ -55,8 +55,10 @@ const Form = (props)=>{
           </MDBModalBody>
           <div className="btn-block z-depth-1a d-flex justify-content-center">
             <br/>
+            <i class={props.approveClass} onClick={props.approved}>{props.approveHeading}</i>
             <MDBBtn color="secondary" onClick={props.btn1action}>{props.btn1}</MDBBtn>
             <MDBBtn color="primary" onClick={props.btn2action}>{props.btn2}</MDBBtn>
+
           </div>
           <br/>
         </MDBModal>
