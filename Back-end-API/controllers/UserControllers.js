@@ -32,9 +32,6 @@ exports.getUsers = (req , res )=>{
 };
 
 
-
-
-
 // Signup
 exports.signup = async (req, res) =>{
     
@@ -122,6 +119,17 @@ exports.signin = (req, res) => {
 exports.signout = (req, res) =>{
   res.clearCookie("t")
   return res.json({message: "Signout success"})
+}
+
+exports.deleteUser = (request, response) => {
+  const id = request.params.id
+
+  pool.query('DELETE FROM users WHERE id = $1', [id], (error, results) => {
+    if (error) {
+      throw error
+    }
+    response.status(200).send(`User deleted successfully`)
+  })
 }
 
 

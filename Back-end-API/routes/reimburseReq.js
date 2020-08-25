@@ -15,7 +15,7 @@ const {requestValidator} = require('../validators/validators')
 router.get('/getreq',getRequests)
 router.get('/getreqbyid/:id',getRequestsById)
 router.post('/postreq',requestValidator , postRequests)
-router.put('/updatereq/:id',updateRequests)
+router.put('/updatereq/:id',requestValidator ,updateRequests)
 router.delete('/deletereq/:id',deleteRequests)
 
 module.exports = router;
