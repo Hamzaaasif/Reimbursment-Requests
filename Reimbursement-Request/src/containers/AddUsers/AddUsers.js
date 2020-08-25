@@ -4,6 +4,7 @@ import { MDBContainer, MDBRow, MDBCol, MDBInput, MDBBtn ,MDBCard, MDBCardHeader,
 import NavBar from '../../components/NavBar/NavBar'
 
 import {Adduser} from '../../axios/auth'
+import {isAutheticated , Signout} from '../../axios/auth'
 
 
 class adduser extends Component {
@@ -15,9 +16,25 @@ class adduser extends Component {
     employeeid:"",
     error : "",
     open : "",
-    radio: 1
+    radio: 1,
+    ismanager :false,
+    username:"",
+    userid:""
   }
 
+  componentDidMount()
+  {
+    const ismanagerole = isAutheticated().user.userrole
+    const id = isAutheticated().user.employeeid+'('+ismanagerole +')'
+    const nameuser = isAutheticated().user.fname +' ' +isAutheticated().user.lname
+    this.setState({username :nameuser , userid : id})
+
+    if(ismanagerole === "manager" )
+    {
+      this.setState({ismanager :true})
+    }
+    
+  }
   handleChange = Name =>(event)=>
   {
     this.setState({error : ""})
@@ -68,19 +85,26 @@ class adduser extends Component {
 
   render(){
 
-    const {fname,lname,password , employeeid ,error , open} = this.state
+    const {fname,lname,password , employeeid ,error , open , ismanager , userid , username} = this.state
+    
+    
     return (
-      <div>
 
+      
+        
+      <div>
+        {ismanager ?(
+        <>
       <NavBar 
         first={"Home"}
-        firstRef= {"usermanager"}
+        firstRef= {""}
         second = {"Add Users"}
         secondRef = {"adduser"}
         third = {"Sign Out"}
-        thirdRef = {""}
-        Username = {"User (Manager)"}
-        empId = {120969}
+        thirdRef = {"signin"}
+        Username = {username}
+        empId = {userid}
+        Signout = {Signout}
         />
 
       <MDBContainer>
@@ -151,7 +175,13 @@ class adduser extends Component {
           </MDBCol>
         </MDBRow>
         </MDBContainer>
-        </div>
+        </>
+        
+      ):(
+      <h2>You don't have access ...</h2>
+      )}
+
+      </div>
     );
   }
 

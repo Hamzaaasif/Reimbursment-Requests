@@ -50,7 +50,7 @@ class signin extends React.Component {
 
     if(redirectToRefer)
     {
-      return <Redirect to ="/userhome"/>
+      return <Redirect to ="/"/>
     }
 
     return (
@@ -96,7 +96,7 @@ class signin extends React.Component {
                 />
                 <br/>
                 <div className="text-center pt-3 mb-3">
-                  <MDBBtn href="/userhome" type="button" gradient="blue" rounded className="btn-block z-depth-1a" onClick = {this.ClickSubmit} >Sign in</MDBBtn>
+                  <MDBBtn href="/" type="button" gradient="blue" rounded className="btn-block z-depth-1a" onClick = {this.ClickSubmit} >Sign in</MDBBtn>
                 </div>
               </MDBCardBody>
 
