@@ -3,8 +3,8 @@ import {Route , Switch} from 'react-router-dom'
 import userHome from '../containers/UserHome/UserHome'
 import Signin from '../containers/Signin/SignIn'
 import Adduser from '../containers/AddUsers/AddUsers'
-import UserManager from '../containers/UserHome/UserHomeManager'
 import PrivateRoutes from '../Routers/PrivateRoutes'
+import Allusers from '../containers/AddUsers/Allusers'
 
 
 const MainRouter = ()=>(
@@ -14,7 +14,7 @@ const MainRouter = ()=>(
 
       <PrivateRoutes exact path="/" component = {userHome}/>
       <PrivateRoutes exact path="/adduser" component = {Adduser}/>
-      <PrivateRoutes exact path="/usermanager" component = {UserManager}/>
+      <PrivateRoutes exact path="/allusers" component = {Allusers}/>
 
     </Switch>
 

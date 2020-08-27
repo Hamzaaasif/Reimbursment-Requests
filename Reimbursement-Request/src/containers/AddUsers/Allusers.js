@@ -46,6 +46,7 @@ class userhome extends Component{
     
     
     if(userroleOnline === "manager"){
+
       this.setState({ismanager:true})
       getReq().then( data => {
         if(data.error)
@@ -57,6 +58,7 @@ class userhome extends Component{
         }
       })
     }
+
     else{
       getReqById(isAutheticated().user.employeeid).then( data => {
         if(data.error)
@@ -85,6 +87,7 @@ class userhome extends Component{
     const status = "Approved"
     const id = this.state.id
     const reqt = {status , id}
+    
 
     UpdateStatus(reqt).then( data => {  
       if(data.error)
