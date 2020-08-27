@@ -60,3 +60,13 @@ export const deleteUser = id =>{
         return error.response.data;
     });
 };
+
+// Update Status Manager
+export const UpdateStatus = reqt =>{
+    return axios.post(`http://localhost:8080/updatestatus`, reqt)
+    .then((response) => {
+        return response;
+    }, (error) => {
+        return error.response;
+    });
+};

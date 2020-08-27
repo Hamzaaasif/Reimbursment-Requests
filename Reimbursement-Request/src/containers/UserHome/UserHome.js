@@ -5,8 +5,8 @@ import {MDBContainer , MDBCard } from 'mdbreact'
 import ReqForm from '../../components/Form/ReqForm'
 
 import {getReq} from '../../axios/req.js'
-import {getReqById} from '../../axios/req.js'
-import {postReq} from '../../axios/req.js'
+import {getReqById , UpdateStatus} from '../../axios/req.js'
+import {postReq } from '../../axios/req.js'
 import {isAutheticated , Signout} from '../../axios/auth'
 import {MDBIcon  } from 'mdbreact';
 
@@ -14,18 +14,17 @@ import {MDBIcon  } from 'mdbreact';
 class userhome extends Component{
 
   state = {
-    
     rows : [],
 
     modal14: false,
     search:"",
 
-    
       reasons : "",
       comment :"",
       money : "",
       open : "",
       error : "",
+      id:"",
    
 
     username : "",
@@ -39,7 +38,6 @@ class userhome extends Component{
   }
 
   fetchData (){
-
     const usernameOnline = isAutheticated().user.fname +' ' +isAutheticated().user.lname
     const userroleOnline = isAutheticated().user.userrole
     const useridOnline = isAutheticated().user.employeeid + ' ('+userroleOnline+')'
@@ -80,6 +78,70 @@ class userhome extends Component{
     
   }
 
+
+  OnApprove = ()=>{
+    
+    const status = "Approved"
+    const id = this.state.id
+    const reqt = {status , id}
+    console.log("Reqst " ,reqt )
+
+    UpdateStatus(reqt).then( data => {  
+      if(data.error)
+      {
+        this.setState({error:data.error, open: "" })
+      }
+      else{
+        
+        this.setState({
+
+          reasons : "",
+          comment :"",
+          money : "",
+          open : "Status Updated..",
+          error : "",
+          modal14: false
+  
+        })
+        
+        this.fetchData()
+      }
+
+    })
+  }
+
+
+  OnDeny = ()=>{
+    
+    const status = "Denied"
+    const id = this.state.id
+    const reqt = {status , id}
+    console.log("Reqst " ,reqt )
+
+    UpdateStatus(reqt).then( data => {  
+      if(data.error)
+      {
+        this.setState({error:data.error, open: "" })
+      }
+      else{
+        
+        this.setState({
+
+          reasons : "",
+          comment :"",
+          money : "",
+          open : "Status Updated..",
+          error : "",
+          modal14: false
+  
+        })
+        
+        this.fetchData()
+      }
+
+    })
+  }
+
   OnSaveForm = ()=>{
     const {
       reasons,
@@ -95,7 +157,6 @@ class userhome extends Component{
       }
       else{
         
-
         this.setState({
 
           reasons : "",
@@ -111,8 +172,6 @@ class userhome extends Component{
 
     })
 
-    
-      
   }
 
   OnhandleChange = (Name)=>(event)=>{
@@ -134,19 +193,19 @@ search =()=> event =>{
  
 
 handlearrow(index) {
-  console.log(index)
+    
   this.setState({
-    modal14: !this.state.modal14,reasons:index.reasons,comment:index.comment , money:index.money
+    modal14: !this.state.modal14,reasons:index.reasons,comment:index.comment , money:index.money , id:index.id,open:"",error:""
   });
   
 }
   render ()
   {
-    const {ismanager,search } = this.state
+    const {ismanager  ,search } = this.state
     
     const appendRow = this.state.rows.map((row,index ) => {
       
-      if(search!="" && row.employeeid.toString().indexOf(search) === -1 && row.reasons.toLowerCase().indexOf(search.toLowerCase()) === -1 && row.status.toLowerCase().indexOf(search.toLowerCase()) && row.date.toLowerCase().indexOf(search.toLowerCase()) && row.comment.toLowerCase().indexOf(search.toLowerCase()) && row.money.toString().indexOf(search) === -1 ) 
+      if(search!=="" && row.employeeid.toString().indexOf(search) === -1 && row.reasons.toLowerCase().indexOf(search.toLowerCase()) === -1 && row.status.toLowerCase().indexOf(search.toLowerCase()) && row.date.toLowerCase().indexOf(search.toLowerCase()) && row.comment.toLowerCase().indexOf(search.toLowerCase()) && row.money.toString().indexOf(search) === -1 ) 
       {
       return null
       }
@@ -212,8 +271,7 @@ handlearrow(index) {
        />
 
        <ReqForm 
-        btn1={"Close"}
-        btn1action = {this.toggle(14)}
+        
         modal14 = {this.state.modal14}
         MainHeading = {"REQUEST"}
         error={this.state.error}
@@ -221,11 +279,13 @@ handlearrow(index) {
         reasons={this.state.reasons}
         money={this.state.money}
         comment={this.state.comment}
-
-        
         OnChange = {this.OnhandleChange}
-        btn2={"Save"}
-        btn2action = {this.OnSaveForm}
+
+        btn1={"Approve"}
+        btn1action = {this.OnApprove}
+        btn2={"Deny"}
+        btn2action = {this.OnDeny}
+        close={this.toggle(14)}
         />
         </>
        ):(
@@ -239,11 +299,11 @@ handlearrow(index) {
         data = {appendRow}
         search={this.search()}
         
+        
         />
 
-        
          <ReqForm 
-        btn1={"Close"}
+        btn1={"Cancel"}
         btn1action = {this.toggle(14)}
         modal14 = {this.state.modal14}
         MainHeading = {"SUBMIT REQUEST"}
@@ -258,12 +318,10 @@ handlearrow(index) {
         OnChange = {this.OnhandleChange}
         btn2={"Save"}
         btn2action = {this.OnSaveForm}
+        close={this.toggle(14)}
         />
         </>
 )}
-
-
-
         
 
         </MDBCard>

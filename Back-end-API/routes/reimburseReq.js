@@ -6,7 +6,8 @@ const {
     getRequestsById,
     postRequests,
     updateRequests,
-    deleteRequests
+    deleteRequests,
+    updateStatus
 
 } = require('../controllers/reimbursementReq')
 
@@ -17,5 +18,6 @@ router.get('/getreqbyid/:id',getRequestsById)
 router.post('/postreq',requestValidator , postRequests)
 router.put('/updatereq/:id',requestValidator ,updateRequests)
 router.delete('/deletereq/:id',deleteRequests)
+router.post('/updatestatus' , updateStatus)
 
 module.exports = router;

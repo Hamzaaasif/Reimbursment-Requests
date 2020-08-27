@@ -3,7 +3,7 @@ const Pool = require('pg').Pool
 var reqt
 
 const pool = new Pool({
-  user: 'admin',
+  user: 'Admin',
   host: 'localhost',
   database: 'reimbursment',
   password: 'admin',
@@ -90,4 +90,28 @@ exports.deleteRequests = (request, response) => {
       }
       response.status(200).send(`Requests deleted successfully`)
     })
+  }
+
+  //Update Staus by manager
+  exports.updateStatus = (request, response) => {
+    const { 
+        status,
+        id
+    } = request.body
+    
+    pool.query(
+      'UPDATE requests SET status = $1 WHERE id=$2',
+      [status , id],
+      (error, results) => {
+        if (error) {
+            throw error
+        }
+        if(results.rowCount === 0){
+          response.status(400).send('Unable to Update Status ...')
+        }
+        else{
+          response.status(200).send('Status Changed...')
+        }
+      }
+    )
   }

@@ -52,7 +52,7 @@ render() {
                 <MDBDropdownMenu className=" waves-effect waves-light dropdown-default">
                   <MDBDropdownItem href="#!">{this.props.Username}</MDBDropdownItem>
                   <MDBDropdownItem href="/">ID - {this.props.empId}</MDBDropdownItem>
-                  <MDBDropdownItem href="/">Sign out</MDBDropdownItem>
+                  <MDBDropdownItem href="/" onClick={this.props.Signout}>Sign out</MDBDropdownItem>
                 </MDBDropdownMenu>
               </MDBDropdown>
             </MDBNavItem>

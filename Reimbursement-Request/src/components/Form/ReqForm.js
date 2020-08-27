@@ -1,5 +1,5 @@
 import React from 'react';
-import { MDBContainer, MDBBtn, MDBModal, MDBModalBody, MDBInput, MDBCardHeader } from 'mdbreact';
+import { MDBContainer, MDBBtn, MDBModal, MDBModalBody, MDBInput, MDBCardHeader , MDBIcon} from 'mdbreact';
 
 
 const Form = (props)=>{
@@ -19,6 +19,7 @@ const Form = (props)=>{
         
           <MDBCardHeader className="view view-cascade gradient-card-header blue-gradient d-flex justify-content-between align-items-center py-2 mx-4 mb-3 ">
           <h4><b>{props.MainHeading}</b></h4>
+          <MDBIcon onClick ={props.close} icon="times fa-2x" />
 
           </MDBCardHeader>
 
@@ -55,7 +56,7 @@ const Form = (props)=>{
           </MDBModalBody>
           <div className="btn-block z-depth-1a d-flex justify-content-center">
             <br/>
-            <i class={props.approveClass} onClick={props.approved}>{props.approveHeading}</i>
+            {/* <i class={props.approveClass} onClick={props.approved}>{props.approveHeading}</i> */}
             <MDBBtn color="secondary" onClick={props.btn1action}>{props.btn1}</MDBBtn>
             <MDBBtn color="primary" onClick={props.btn2action}>{props.btn2}</MDBBtn>
 
