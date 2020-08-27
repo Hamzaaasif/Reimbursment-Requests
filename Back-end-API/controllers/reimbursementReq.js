@@ -53,13 +53,15 @@ exports.postRequests = (request, response) => {
     })
 }
 
+//for update requests
 exports.updateRequests = (request, response) => {
-    const id = request.params.id
     const { 
+        id,
         reasons,
         comment,
-        money
+        money,
     } = request.body
+
     var date = new Date()
     month = date.getMonth()+1
     date = date.getDate() + "-" + month + "-" + date.getFullYear()
@@ -72,15 +74,16 @@ exports.updateRequests = (request, response) => {
             throw error
         }
         if(results.rowCount === 0){
-          response.status(400).send('You are not allow to update this request')
+          response.status(400).json({error :'You cannot Update this Request .. '})
         }
         else{
-          response.status(200).send('Request updated successfully')
+          response.status(200).json({result: 'Request Updated ...'})
         }
       }
     )
   }
 
+//for deleting requests by id
 exports.deleteRequests = (request, response) => {
     const id = request.params.id
   
@@ -92,7 +95,9 @@ exports.deleteRequests = (request, response) => {
     })
   }
 
-  //Update Staus by manager
+
+  
+  //Update Staus for manager
   exports.updateStatus = (request, response) => {
     const { 
         status,

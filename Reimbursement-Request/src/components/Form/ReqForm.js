@@ -19,7 +19,7 @@ const Form = (props)=>{
         
           <MDBCardHeader className="view view-cascade gradient-card-header blue-gradient d-flex justify-content-between align-items-center py-2 mx-4 mb-3 ">
           <h4><b>{props.MainHeading}</b></h4>
-          <MDBIcon onClick ={props.close} icon="times fa-2x" />
+          <MDBIcon onClick ={props.close} icon="times fa-2x" style={{color:"white"}}/>
 
           </MDBCardHeader>
 

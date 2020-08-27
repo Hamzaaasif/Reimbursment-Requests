@@ -5,10 +5,11 @@ import {MDBContainer , MDBCard } from 'mdbreact'
 import ReqForm from '../../components/Form/ReqForm'
 
 import {getReq} from '../../axios/req.js'
-import {getReqById , UpdateStatus} from '../../axios/req.js'
+import {getReqById , UpdateStatus } from '../../axios/req.js'
 import {postReq } from '../../axios/req.js'
 import {isAutheticated , Signout} from '../../axios/auth'
 import {MDBIcon  } from 'mdbreact';
+import axios from 'axios'
 
 
 class userhome extends Component{
@@ -73,7 +74,7 @@ class userhome extends Component{
   toggle = nr => () => {
     let modalNumber = 'modal' + nr
     this.setState({
-    [modalNumber]: !this.state[modalNumber],error:"",open:""
+    [modalNumber]: !this.state[modalNumber] , error:"",open:"", comment:"",money:"",reasons:"", id:""
   });
     
   }
@@ -100,6 +101,7 @@ class userhome extends Component{
           money : "",
           open : "Status Updated..",
           error : "",
+          id:"",
           modal14: false
   
         })
@@ -132,6 +134,7 @@ class userhome extends Component{
           money : "",
           open : "Status Updated..",
           error : "",
+          id:"",
           modal14: false
   
         })
@@ -143,6 +146,9 @@ class userhome extends Component{
   }
 
   OnSaveForm = ()=>{
+
+    if(this.state.id === "")
+    {
     const {
       reasons,
       comment,
@@ -173,6 +179,37 @@ class userhome extends Component{
     })
 
   }
+  else{
+
+    const {id , reasons , comment , money } = this.state
+    const reqst = {id , reasons , comment , money}
+
+
+    axios.put(`http://localhost:8080/updatereq`, reqst)
+    .then((response) => {
+
+      this.setState({
+
+        reasons : "",
+        comment :"",
+        money : "",
+        open : "",
+        error : "",
+        id:""
+
+      })
+        this.fetchData()
+    }, (error) => {
+
+      this.setState({
+        id:"",
+        error : error.response.data.error
+
+      })
+    });
+
+  } 
+}
 
   OnhandleChange = (Name)=>(event)=>{
 
@@ -187,10 +224,42 @@ class userhome extends Component{
 }
 
 search =()=> event =>{
-  console.log(event.target.value)
   this.setState({search:event.target.value})
 }
- 
+
+
+deletereq(req){
+
+  axios.delete(`http://localhost:8080/deletereq/${req.id}`)
+    .then((response) => {
+      console.log("Response for delete : ", response.data)
+      this.setState({
+
+        reasons : "",
+        comment :"",
+        money : "",
+        open : "",
+        error : "",
+        id:""
+  
+      })
+       this.fetchData()
+    }, (error) => {
+
+      this.setState({
+
+        reasons : "",
+        comment :"",
+        money : "",
+        open : "",
+        error : error.response.data,
+        id:""
+  
+      })
+    });
+
+    
+}
 
 handlearrow(index) {
     
@@ -219,7 +288,11 @@ handlearrow(index) {
             <td>{row.money}</td>
             <td>{row.status}</td>
             <td>
-              <MDBIcon icon="angle-double-right fa-2x" onClick={() => this.handlearrow(row)} />
+              <MDBIcon icon="angle-double-right fa-2x ml-3" onClick={() => this.handlearrow(row)} style={{color:"green"}}/>
+              {ismanager ? (
+                <i className="fas fa-trash ml-4 fa-2x" style={{color:"red"}} onClick={()=> this.deletereq(row) }></i>
+              ):("")}
+              
             </td>
           </tr>
       )
