@@ -1,7 +1,8 @@
 import axios from 'axios';
 
-export const postReq = request =>{
-    return axios.post(`http://localhost:8080/postreq`, request)
+// Post Request
+export const postReq = reqt =>{
+    return axios.post(`http://localhost:8080/postreq`, reqt)
     .then((response) => {
         return response.data;
     }, (error) => {
@@ -9,6 +10,7 @@ export const postReq = request =>{
     });
 };
 
+// Get Request
 export const getReq = () =>{
     return axios.get(`http://localhost:8080/getreq`)
     .then((response) => {
@@ -18,6 +20,7 @@ export const getReq = () =>{
     });
 };
 
+// Get Request By Id
 export const getReqById = id =>{
   
     return axios.get(`http://localhost:8080/getreqbyid/${id}`)
@@ -28,11 +31,32 @@ export const getReqById = id =>{
     });
 };
 
-export const putReq = id =>{
-    axios.put(`http://localhost:8080/updatereq/${id}`)
+// Update Request By Id
+export const putReq = (id, reqt) =>{
+    axios.put(`http://localhost:8080/updatereq/${id}`, reqt)
     .then((response) => {
-        
+        return response.data;
     }, (error) => {
-    console.log(error);
+        return error.response.data;
+    });
+};
+
+// Delete Request By Id
+export const deleteReq = id =>{
+    axios.delete(`http://localhost:8080/deletereq/${id}`)
+    .then((response) => {
+        return response.data;
+    }, (error) => {
+        return error.response.data;
+    });
+};
+
+// Delete User By Id
+export const deleteUser = id =>{
+    axios.delete(`http://localhost:8080/deleteuser/${id}`)
+    .then((response) => {
+        return response.data;
+    }, (error) => {
+        return error.response.data;
     });
 };

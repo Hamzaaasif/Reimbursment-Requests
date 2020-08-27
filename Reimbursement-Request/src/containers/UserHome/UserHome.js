@@ -48,7 +48,7 @@ class userhome extends Component{
     
     if(userroleOnline === "manager"){
       this.setState({ismanager:true})
-        getReq().then( data => {
+      getReq().then( data => {
         if(data.error)
         {
           this.setState({error:data.error})
@@ -59,10 +59,10 @@ class userhome extends Component{
       })
     }
     else{
-        getReqById(isAutheticated().user.employeeid).then( data => {
+      getReqById(isAutheticated().user.employeeid).then( data => {
         if(data.error)
         {
-          this.setState({error: data.error})
+          this.setState({error:data.error})
         }
         else{
           this.setState({rows: data})
@@ -91,7 +91,7 @@ class userhome extends Component{
     postReq(req).then( data => {
       if(data.error)
       {
-        this.setState({error:data.error})
+        this.setState({error:data.error, open: ""})
       }
       else{
         

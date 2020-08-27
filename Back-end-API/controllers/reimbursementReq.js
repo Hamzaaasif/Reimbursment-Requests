@@ -1,7 +1,9 @@
 const Pool = require('pg').Pool
 
+var reqt
+
 const pool = new Pool({
-  user: 'Admin',
+  user: 'admin',
   host: 'localhost',
   database: 'reimbursment',
   password: 'admin',
@@ -52,31 +54,37 @@ exports.postRequests = (request, response) => {
 }
 
 exports.updateRequests = (request, response) => {
-    const employeeid = request.params.id
+    const id = request.params.id
     const { 
         reasons,
         comment,
-        money,
-        status,
-        date
+        money
     } = request.body
-  
+    var date = new Date()
+    month = date.getMonth()+1
+    date = date.getDate() + "-" + month + "-" + date.getFullYear()
+
     pool.query(
-      'UPDATE requests SET reasons = $1, comment = $2, money = $3, status = $4, date = $5 WHERE employeeid = $6',
-      [reasons, comment, money, status, date, employeeid],
+      'UPDATE requests SET reasons = $1, comment = $2, money = $3, date = $4 WHERE id = $5 AND status = $6',
+      [reasons, comment, money, date, id, 'Pending'],
       (error, results) => {
         if (error) {
             throw error
         }
-        response.status(200).send('Request updated successfully')
+        if(results.rowCount === 0){
+          response.status(400).send('You are not allow to update this request')
+        }
+        else{
+          response.status(200).send('Request updated successfully')
+        }
       }
     )
   }
 
 exports.deleteRequests = (request, response) => {
-    const employeeid = request.params.id
+    const id = request.params.id
   
-    pool.query('DELETE FROM requests WHERE employeeid = $1', [employeeid], (error, results) => {
+    pool.query('DELETE FROM requests WHERE id = $1', [id], (error, results) => {
       if (error) {
         throw error
       }

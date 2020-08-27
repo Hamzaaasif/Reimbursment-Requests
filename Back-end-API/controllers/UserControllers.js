@@ -8,7 +8,7 @@ const expressjwt = require('express-jwt');
 
 //db connections
 const pool = new Pool({
-user: "Admin",
+user: "admin",
 host: 'localhost',
 database: 'reimbursment',
 password: "admin",
@@ -30,9 +30,6 @@ exports.getUsers = (req , res )=>{
     }
   })
 };
-
-
-
 
 
 // Signup
@@ -122,6 +119,17 @@ exports.signin = (req, res) => {
 exports.signout = (req, res) =>{
   res.clearCookie("t")
   return res.json({message: "Signout success"})
+}
+
+exports.deleteUser = (request, response) => {
+  const id = request.params.id
+
+  pool.query('DELETE FROM users WHERE id = $1', [id], (error, results) => {
+    if (error) {
+      throw error
+    }
+    response.status(200).send(`User deleted successfully`)
+  })
 }
 
 

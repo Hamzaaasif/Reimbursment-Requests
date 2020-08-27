@@ -30,7 +30,7 @@ const Tables = (props) => {
 
     </div>
 
-</MDBCardHeader>
+  </MDBCardHeader>
 
     
     <MDBCardBody cascade>
@@ -40,7 +40,6 @@ const Tables = (props) => {
     <MDBTable bordered reponsive fixed striped  searchTop>
     
     <MDBTableHead >
-    
     
       <tr>
         <th> ID </th>
@@ -62,7 +61,6 @@ const Tables = (props) => {
   </MDBTable>
 
         </MDBCardBody>
-
   </MDBCard>
           
   );
