@@ -14,39 +14,7 @@ import {MDBIcon  } from 'mdbreact';
 class userhome extends Component{
 
   state = {
-    columns :[
-      {
-        label: '#',
-        field: 'employeeid',
-        sort: 'asc'
-      },
-      {
-        label: 'Reason',
-        field: 'reasons',
-        sort: 'asc'
-      },
-      {
-        label: 'Comments',
-        field: 'comment',
-        sort: 'asc'
-      },
-      {
-        label: 'Money',
-        field: 'money',
-        sort: 'asc'
-      },
-      {
-        label: 'Status',
-        field: 'status',
-        sort: 'asc'
-      },
-      {
-        label: 'Date',
-        field: 'date',
-        sort: 'asc'
-      }
-    ],
-
+    
     rows : [],
 
     modal14: false,
@@ -100,10 +68,9 @@ class userhome extends Component{
           this.setState({rows: data})
         }
       })
-    }
+    } 
     
   }
-
 
   toggle = nr => () => {
     let modalNumber = 'modal' + nr

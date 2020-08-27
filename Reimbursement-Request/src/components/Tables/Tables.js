@@ -49,7 +49,7 @@ const Tables = (props) => {
         <th>Comments</th>
         <th>money</th>
         <th>Status</th>
-        <th>{props.name}</th>
+        <th>Actions</th>
       </tr>
       
     </MDBTableHead>

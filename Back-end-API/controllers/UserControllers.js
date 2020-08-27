@@ -12,7 +12,7 @@ user: "Admin",
 host: 'localhost',
 database: 'reimbursment',
 password: "admin",
-port: 3307,
+port: 5432,
 })
 
 

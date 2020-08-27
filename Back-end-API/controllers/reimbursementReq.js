@@ -5,7 +5,7 @@ const pool = new Pool({
   host: 'localhost',
   database: 'reimbursment',
   password: 'admin',
-  port: 3307,
+  port: 5432,
 })
 
 exports.getRequests = (request, response) => {
