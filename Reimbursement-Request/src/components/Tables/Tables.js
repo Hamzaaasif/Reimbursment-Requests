@@ -42,13 +42,14 @@ const Tables = (props) => {
     <MDBTableHead >
     
       <tr>
-        <th> ID </th>
-        <th>Date</th>
-        <th>Reason</th>
-        <th>Comments</th>
-        <th>money</th>
-        <th>Status</th>
-        <th>Actions</th>
+        <th> {props.ID} </th>
+        <th>{props.Date}</th>
+        <th>{props.Reason}</th>
+        <th>{props.Comments}</th>
+        <th>{props.money}</th>
+        <th>{props.Status}</th>
+        {props.Actions ?(<th>{props.Actions}</th>):("")}
+        
       </tr>
       
     </MDBTableHead>

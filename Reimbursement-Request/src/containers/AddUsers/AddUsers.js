@@ -105,6 +105,8 @@ class adduser extends Component {
         Username = {username}
         empId = {userid}
         Signout = {Signout}
+        allusers={"All Users"}
+        alluserRef={"allusers"}
         />
 
       <MDBContainer>

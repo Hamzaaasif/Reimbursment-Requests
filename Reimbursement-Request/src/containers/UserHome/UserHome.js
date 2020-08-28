@@ -314,6 +314,8 @@ handlearrow(index) {
         Signout = {Signout}
         allusers={"All Users"}
         alluserRef={"allusers"}
+        
+
 
         />
 
@@ -343,6 +345,14 @@ handlearrow(index) {
        formRef = {"userform"}
        data = {appendRow}
        search={this.search()}
+       Actions={"Actions"}
+       ID={"ID"}
+       Date = {"Date"}
+       Reason={"Reason"}
+       Comments={"Comment"}
+       money={"Money"}
+       Status={"Status"}
+
        />
 
        <ReqForm 
@@ -373,6 +383,13 @@ handlearrow(index) {
         toggle = {this.toggle(14)}
         data = {appendRow}
         search={this.search()}
+        Actions={"Actions"}
+        ID={"ID"}
+       Date = {"Date"}
+       Reason={"Reason"}
+       Comments={"Comment"}
+       money={"Money"}
+       Status={"Status"}
         
         
         />

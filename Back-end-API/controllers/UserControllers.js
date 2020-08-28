@@ -25,7 +25,6 @@ exports.getUsers = (req , res )=>{
     }
     else
     {
-      console.log("Data base connected...")
       res.status(200).json(result.rows)
     }
   })
