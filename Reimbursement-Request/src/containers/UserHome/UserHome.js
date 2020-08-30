@@ -161,12 +161,11 @@ class userhome extends Component{
     if(this.state.isdel)
     {
       axios.delete(`${process.env.REACT_APP_API_URL}/deletereq/${this.state.id}`)
-    .then((response) => {
+      .then((response) => {
       this.setState({
-        
+
         isdel :false,
-        confirm14:false,
-        
+        confirm14:false,        
         open : "",
         error :"",
         id:""
@@ -186,8 +185,8 @@ class userhome extends Component{
     });
 
     }
-
-    if(this.state.id === "")
+    
+    else if(this.state.id === "")
     {
     const {
       reasons,
@@ -270,7 +269,7 @@ search =()=> event =>{
 
 deletereq(req){
   
-  this.setState({confirm14:true , isdel:true , id : req.id ,  open : "", error:""})  
+  this.setState({ confirm14:true , isdel:true , id : req.id ,  open : "", error:""})  
 
 }
 
