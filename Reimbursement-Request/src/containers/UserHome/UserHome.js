@@ -160,7 +160,7 @@ class userhome extends Component{
 
     if(this.state.isdel)
     {
-      axios.delete(`http://localhost:8080/deletereq/${this.state.id}`)
+      axios.delete(`${process.env.REACT_APP_API_URL}/deletereq/${req.id}`)
     .then((response) => {
       this.setState({
 
@@ -224,7 +224,7 @@ class userhome extends Component{
     const reqst = {id , reasons , comment , money}
 
 
-    axios.put(`http://localhost:8080/updatereq`, reqst)
+    axios.put(`${process.env.REACT_APP_API_URL}/updatereq`, reqst)
     .then((response) => {
 
       this.setState({
@@ -268,8 +268,9 @@ search =()=> event =>{
 
 
 deletereq(req){
-
+  
   this.setState({confirm14:true , isdel:true , id : req.id ,  open : ""})  
+
 }
 
 handlearrow(index) {

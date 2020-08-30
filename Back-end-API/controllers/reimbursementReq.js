@@ -3,7 +3,7 @@ const Pool = require('pg').Pool
 var reqt
 
 const pool = new Pool({
-  user: 'Admin',
+  user: 'admin',
   host: 'localhost',
   database: 'reimbursment',
   password: 'admin',

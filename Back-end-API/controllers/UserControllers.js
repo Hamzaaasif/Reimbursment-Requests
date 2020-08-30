@@ -8,7 +8,7 @@ const expressjwt = require('express-jwt');
 
 //db connections
 const pool = new Pool({
-user: "Admin",
+user: "admin",
 host: 'localhost',
 database: 'reimbursment',
 password: "admin",

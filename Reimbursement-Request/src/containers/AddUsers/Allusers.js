@@ -93,10 +93,11 @@ deletereq(req){
   this.setState({modal14:true , line:"ARE YOU SURE YOU WANT TO DELETE ?",modalheading  :"CONFIRMATION" , isdel:true,id:req.id})
     
 }
+
 onSave =()=>{
   if(this.state.isdel)
   {
-    axios.delete(`http://localhost:8080/deleteuser/${this.state.id}`)
+    axios.delete(`${process.env.REACT_APP_API_URL}/deleteuser/${req.id}`)
     .then((response) => {
       this.setState({
         error : "",
