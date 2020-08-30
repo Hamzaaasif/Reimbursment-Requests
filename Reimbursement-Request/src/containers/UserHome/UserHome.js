@@ -163,9 +163,10 @@ class userhome extends Component{
       axios.delete(`${process.env.REACT_APP_API_URL}/deletereq/${this.state.id}`)
     .then((response) => {
       this.setState({
-
+        
         isdel :false,
         confirm14:false,
+        
         open : "",
         error :"",
         id:""
