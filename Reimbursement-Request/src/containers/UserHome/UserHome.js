@@ -10,6 +10,8 @@ import {postReq } from '../../axios/req.js'
 import {isAutheticated , Signout} from '../../axios/auth'
 import {MDBIcon  } from 'mdbreact';
 import axios from 'axios'
+import Modal from '../../components/Form/Modal'
+
 
 
 class userhome extends Component{
@@ -30,7 +32,9 @@ class userhome extends Component{
 
     username : "",
     userid:"",
-    ismanager:false
+    ismanager:false,
+    confirm14:false,
+    isdel:""
   }
 
   componentDidMount(){
@@ -73,6 +77,14 @@ class userhome extends Component{
 
   toggle = nr => () => {
     let modalNumber = 'modal' + nr
+    this.setState({
+    [modalNumber]: !this.state[modalNumber] , error:"",open:"", comment:"",money:"",reasons:"", id:""
+  });
+    
+  }
+
+  confirm = nr => () => {
+    let modalNumber = 'confirm' + nr
     this.setState({
     [modalNumber]: !this.state[modalNumber] , error:"",open:"", comment:"",money:"",reasons:"", id:""
   });
@@ -146,6 +158,34 @@ class userhome extends Component{
 
   OnSaveForm = ()=>{
 
+    if(this.state.isdel)
+    {
+      axios.delete(`http://localhost:8080/deletereq/${this.state.id}`)
+    .then((response) => {
+      this.setState({
+
+        isdel :false,
+        open : "",
+        error : "",
+        id:"",
+        confirm14:false
+  
+      })
+       this.fetchData()
+    }, (error) => {
+
+      this.setState({
+
+        isdel : "",
+        open : "",
+        error : error.response.data,
+        id:""
+  
+      })
+    });
+
+    }
+
     if(this.state.id === "")
     {
     const {
@@ -194,14 +234,14 @@ class userhome extends Component{
         money : "",
         open : "",
         error : "",
-        id:""
+        id:"",
+        modal14:false
 
       })
         this.fetchData()
     }, (error) => {
 
       this.setState({
-        id:"",
         error : error.response.data.error
 
       })
@@ -229,35 +269,7 @@ search =()=> event =>{
 
 deletereq(req){
 
-  axios.delete(`http://localhost:8080/deletereq/${req.id}`)
-    .then((response) => {
-      console.log("Response for delete : ", response.data)
-      this.setState({
-
-        reasons : "",
-        comment :"",
-        money : "",
-        open : "",
-        error : "",
-        id:""
-  
-      })
-       this.fetchData()
-    }, (error) => {
-
-      this.setState({
-
-        reasons : "",
-        comment :"",
-        money : "",
-        open : "",
-        error : error.response.data,
-        id:""
-  
-      })
-    });
-
-    
+  this.setState({confirm14:true , isdel:true , id : req.id ,  open : ""})  
 }
 
 handlearrow(index) {
@@ -371,6 +383,22 @@ handlearrow(index) {
         btn2={"Deny"}
         btn2action = {this.OnDeny}
         close={this.toggle(14)}
+        />
+
+
+        <Modal 
+
+        modal14 = {this.state.confirm14}
+        MainHeading = {"CONFIRMATION"}
+        error={this.state.error}
+        open={this.state.open}
+        line={"ARE YOU SURE YOU WANT TO DELETE ?"}
+        btn1={"Close"}
+        btn1action = {this.confirm(14)}
+
+        btn2={"Save"}
+        btn2action = {this.OnSaveForm}
+        close={this.confirm(14)}
         />
         </>
        ):(

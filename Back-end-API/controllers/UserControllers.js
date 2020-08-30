@@ -35,7 +35,6 @@ exports.getUsers = (req , res )=>{
 exports.signup = async (req, res) =>{
     
   // Check if user exist by employeeid
-
   let employeeid = req.body.employeeid
   dbquery = `SELECT * FROM public.users WHERE employeeid = $1;`;
   pool.query(dbquery, [employeeid], (err, result)=> {
@@ -138,3 +137,29 @@ exports.requireSignin = expressjwt({
   algorithms: ['RS256']
 })
 
+
+
+//for update user passowrds
+exports.updatePassword = (request, response) => {
+  const { 
+      id,
+      password
+  } = request.body
+
+
+  pool.query(
+    'UPDATE users SET password = $1 WHERE id = $2',
+    [password, id],
+    (error, results) => {
+      if (error) {
+          throw error
+      }
+      if(results.rowCount === 0){
+        response.status(400).json({error :'Unable to update Password ...'})
+      }
+      else{
+        response.status(200).json({result: 'Password Updated ...'})
+      }
+    }
+  )
+}
