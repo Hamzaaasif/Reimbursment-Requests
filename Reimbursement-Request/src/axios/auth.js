@@ -1,7 +1,7 @@
 
 export const Signin = user =>{
   console.log(JSON.stringify(user))
-  return fetch(`http://localhost:8080/signin`,{
+  return fetch(`${process.env.REACT_APP_API_URL}/signin`,{
     method:"POST",
     headers:{
       Accept:"application/json",
@@ -29,7 +29,7 @@ export const Signout = () =>{
     localStorage.removeItem("jwt")
   }
     
-    return fetch(`http://localhost:8080/signout`,{
+    return fetch(`${process.env.REACT_APP_API_URL}/signout`,{
       method:"GET"
     })
     .then(response =>{
@@ -57,7 +57,7 @@ export const isAutheticated = ()=>{
 
 export const Adduser = user =>{
 
-  return fetch(`http://localhost:8080/signup`,{
+  return fetch(`${process.env.REACT_APP_API_URL}/signup`,{
     method:"POST",
     headers:{
       Accept:"application/json",

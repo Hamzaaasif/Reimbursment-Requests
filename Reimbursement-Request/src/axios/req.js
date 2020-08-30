@@ -2,7 +2,7 @@ import axios from 'axios';
 
 // Post Request
 export const postReq = reqt =>{
-    return axios.post(`http://localhost:8080/postreq`, reqt)
+    return axios.post(`${process.env.REACT_APP_API_URL}/postreq`, reqt)
     .then((response) => {
         return response.data;
     }, (error) => {
@@ -12,7 +12,7 @@ export const postReq = reqt =>{
 
 // Get Request
 export const getReq = () =>{
-    return axios.get(`http://localhost:8080/getreq`)
+    return axios.get(`${process.env.REACT_APP_API_URL}/getreq`)
     .then((response) => {
         return response.data;
     }, (error) => {
@@ -23,7 +23,7 @@ export const getReq = () =>{
 // Get Request By Id
 export const getReqById = id =>{
   
-    return axios.get(`http://localhost:8080/getreqbyid/${id}`)
+    return axios.get(`${process.env.REACT_APP_API_URL}/getreqbyid/${id}`)
     .then((response) => {
         return response.data;
     }, (error) => {
@@ -35,7 +35,7 @@ export const getReqById = id =>{
 
 // Update Status Manager
 export const UpdateStatus = reqt =>{
-    return axios.post(`http://localhost:8080/updatestatus`, reqt)
+    return axios.post(`${process.env.REACT_APP_API_URL}/updatestatus`, reqt)
     .then((response) => {
         return response;
     }, (error) => {

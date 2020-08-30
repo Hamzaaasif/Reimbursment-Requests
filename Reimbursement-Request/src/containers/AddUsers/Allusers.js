@@ -68,7 +68,7 @@ search =()=> event =>{
 
 deletereq(req){
 
-  axios.delete(`http://localhost:8080/deleteuser/${req.id}`)
+  axios.delete(`${process.env.REACT_APP_API_URL}/deleteuser/${req.id}`)
     .then((response) => {
       this.setState({
         error : "",

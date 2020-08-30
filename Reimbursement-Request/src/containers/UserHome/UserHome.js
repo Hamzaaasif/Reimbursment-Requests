@@ -184,7 +184,7 @@ class userhome extends Component{
     const reqst = {id , reasons , comment , money}
 
 
-    axios.put(`http://localhost:8080/updatereq`, reqst)
+    axios.put(`${process.env.REACT_APP_API_URL}/updatereq`, reqst)
     .then((response) => {
 
       this.setState({
@@ -229,7 +229,7 @@ search =()=> event =>{
 
 deletereq(req){
 
-  axios.delete(`http://localhost:8080/deletereq/${req.id}`)
+  axios.delete(`${process.env.REACT_APP_API_URL}/deletereq/${req.id}`)
     .then((response) => {
       console.log("Response for delete : ", response.data)
       this.setState({
