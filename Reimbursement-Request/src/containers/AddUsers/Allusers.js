@@ -7,7 +7,7 @@ import {getUsers} from '../../axios/users'
 import {isAutheticated , Signout} from '../../axios/auth'
 import {MDBIcon  } from 'mdbreact';
 import axios from 'axios'
-
+import Modal from '../../components/Form/Modal'
 
 class userhome extends Component{
 
@@ -15,11 +15,14 @@ class userhome extends Component{
     rows : [],
 
     modal14: false,
+    modalheading:"",
+    line:"",
+    ispass: false,
+    password:"",
+    isdel:false,
+
     search:"",
 
-      reasons : "",
-      comment :"",
-      money : "",
       open : "",
       error : "",
       id:"",
@@ -41,7 +44,7 @@ class userhome extends Component{
     const useridOnline = isAutheticated().user.employeeid + ' ('+userroleOnline+')'
     this.setState({username :usernameOnline , userid : useridOnline})
 
-    if(userroleOnline == "manager")
+    if(userroleOnline === "manager")
     {
       this.setState({ismanager:true})
     }
@@ -59,7 +62,26 @@ class userhome extends Component{
     
   }
 
+
+  toggle = nr => () => {
+    let modalNumber = 'modal' + nr
+    this.setState({
+    [modalNumber]: !this.state[modalNumber] , error:"",open:"", ispass:false , password:"",isdel:false,id:""
+  });
+    
+  }
   
+  OnhandleChange = (Name)=>(event)=>{
+
+    this.setState({ error:"", open:""})
+    this.setState({ 
+      
+        [Name]:event.target.value
+      
+    })
+
+
+}
 
 search =()=> event =>{
   this.setState({search:event.target.value})
@@ -68,12 +90,20 @@ search =()=> event =>{
 
 deletereq(req){
 
-  axios.delete(`${process.env.REACT_APP_API_URL}/deleteuser/${req.id}`)
+  this.setState({modal14:true , line:"ARE YOU SURE YOU WANT TO DELETE ?",modalheading  :"CONFIRMATION" , isdel:true,id:req.id})
+    
+}
+
+onSave =()=>{
+  if(this.state.isdel)
+  {
+    axios.delete(`${process.env.REACT_APP_API_URL}/deleteuser/${req.id}`)
     .then((response) => {
       this.setState({
         error : "",
         id:"",
-        open:""
+        open:"",
+        modal14:false
   
       })
        this.fetchData()
@@ -81,19 +111,46 @@ deletereq(req){
 
       this.setState({
 
-        error : error.response.data,
-        id:""
-  
+        error : error.response.data,  
       })
     });
 
-    
+  }
+
+  if(this.state.ispass)
+  {
+    const {id , password } = this.state
+    const reqst = {id , password}
+
+
+    axios.put(`http://localhost:8080/updatepass`, reqst)
+    .then((response) => {
+
+      this.setState({
+
+        ispass : "",
+        id :"",
+        error : "",
+        open:"",
+        modal14:false,
+        password:""
+
+      })
+        this.fetchData()
+    }, (error) => {
+
+      this.setState({
+        error : error.response.data.error
+
+      })
+    });
+  }
 }
 
 handlearrow(index) {
     
   this.setState({
-    modal14: !this.state.modal14,reasons:index.reasons,comment:index.comment , money:index.money , id:index.id,open:"",error:""
+    modal14: !this.state.modal14 , modalheading:"CHANGE PASSWORD",line:"PLEASE ENTER NEW PASSWORD" , ispass:true , id:index.id,open:"",error:""
   });
   
 }
@@ -108,6 +165,8 @@ handlearrow(index) {
       return null
       }
       return (
+
+        
         
         <tr key={index}>
             <td>{row.id}</td>
@@ -172,6 +231,24 @@ handlearrow(index) {
        Status={"Actions"}
 
        />
+
+      <Modal 
+
+        modal14 = {this.state.modal14}
+        MainHeading = {this.state.modalheading}
+        error={this.state.error}
+        open={this.state.open}
+        line={this.state.line}
+        pass={this.state.ispass}
+        password={this.state.password}
+        OnChange = {this.OnhandleChange}
+        btn1={"Close"}
+        btn1action = {this.toggle(14)}
+
+        btn2={"Save"}
+        btn2action = {this.onSave}
+        close={this.toggle(14)}
+        />
         </>
        ):(
          ""
