@@ -21,7 +21,7 @@ class signin extends React.Component {
 
   ClickSubmit= event =>{
     event.preventDefault();
-    this.setState({loading:true})
+    this.setState({loading:true , error : ""})
     const {employeeid , password} = this.state;
 
     const user = {

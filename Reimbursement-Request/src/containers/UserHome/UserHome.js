@@ -86,7 +86,7 @@ class userhome extends Component{
   confirm = nr => () => {
     let modalNumber = 'confirm' + nr
     this.setState({
-    [modalNumber]: !this.state[modalNumber] , error:"",open:"", comment:"",money:"",reasons:"", id:""
+    [modalNumber]: !this.state[modalNumber] , error:"" ,open:"", comment:"",money:"",reasons:"", id:""
   });
     
   }
@@ -160,15 +160,15 @@ class userhome extends Component{
 
     if(this.state.isdel)
     {
-      axios.delete(`${process.env.REACT_APP_API_URL}/deletereq/${req.id}`)
+      axios.delete(`${process.env.REACT_APP_API_URL}/deletereq/${this.state.id}`)
     .then((response) => {
       this.setState({
 
         isdel :false,
+        confirm14:false,
         open : "",
-        error : "",
-        id:"",
-        confirm14:false
+        error :"",
+        id:""
   
       })
        this.fetchData()
@@ -269,7 +269,7 @@ search =()=> event =>{
 
 deletereq(req){
   
-  this.setState({confirm14:true , isdel:true , id : req.id ,  open : ""})  
+  this.setState({confirm14:true , isdel:true , id : req.id ,  open : "", error:""})  
 
 }
 

@@ -8,6 +8,7 @@
     "@testing-library/user-event": "^7.1.2",
     "axios": "^0.19.2",
     "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
     "express-validator": "^6.6.1",
     "mdbreact": "^4.27.0",
     "react": " ^16.13.1",

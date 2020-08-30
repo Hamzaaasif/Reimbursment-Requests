@@ -2,7 +2,6 @@ import React,{Component} from 'react';
 import Tables from '../../components/Tables/Tables';
 import NavBar from '../../components/NavBar/NavBar';
 import {MDBContainer , MDBCard } from 'mdbreact'
-
 import {getUsers} from '../../axios/users'
 import {isAutheticated , Signout} from '../../axios/auth'
 import {MDBIcon  } from 'mdbreact';
@@ -90,14 +89,14 @@ search =()=> event =>{
 
 deletereq(req){
 
-  this.setState({modal14:true , line:"ARE YOU SURE YOU WANT TO DELETE ?",modalheading  :"CONFIRMATION" , isdel:true,id:req.id})
+  this.setState({modal14:true , line:"ARE YOU SURE YOU WANT TO DELETE ?",modalheading  :"CONFIRMATION" , isdel:true,id:req.id , error:"" , open:""})
     
 }
 
 onSave =()=>{
   if(this.state.isdel)
   {
-    axios.delete(`${process.env.REACT_APP_API_URL}/deleteuser/${req.id}`)
+    axios.delete(`${process.env.REACT_APP_API_URL}/deleteuser/${this.state.id}`)
     .then((response) => {
       this.setState({
         error : "",
@@ -123,14 +122,14 @@ onSave =()=>{
     const reqst = {id , password}
 
 
-    axios.put(`http://localhost:8080/updatepass`, reqst)
+    axios.put(`${process.env.REACT_APP_API_URL}/updatepass`, reqst)
     .then((response) => {
 
       this.setState({
 
         ispass : "",
         id :"",
-        error : "",
+        error :"",
         open:"",
         modal14:false,
         password:""
